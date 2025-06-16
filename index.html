@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>King & Country</title>
+    <link rel="stylesheet" type="text/css" href="assets/win95.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+  </head>
+  <body class="windows">
+    <div class="container">
+      <div class="cards-wrapper">
+        <div class="card farm-card w95 hidden">
+          <div class="card-header">
+            <p>Farm Management</p>
+          </div>
+          <div class="card-body">
+
+            <form class="crops">
+              <legend>Crops</legend>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="crops" id="wheat" value="wheat">
+                <label class="form-check-label" for="wheat">Wheat</br><span class="font-12">More Gold per click</span></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="crops" id="barley" value="barley">
+                <label class="form-check-label" for="barley">Barley</br><span class="font-12">More Gold per Peasent</span></label>
+              </div>
+            </form>
+
+            <form class="animals">
+              <legend>Animals</legend>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="animal" id="sheep" value="sheep">
+                <label class="form-check-label" for="sheep">Sheep</br><span class="font-12">More Gold per click</span></label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="animal" id="oxen" value="oxen">
+                <label class="form-check-label" for="oxen">Oxen</br><span class="font-12">More Gold per Merchent</span></label>
+              </div>
+            </form>
+
+          </div>
+        </div>
+        <div class="card market-card w95 hidden">
+          <div class="card-header">
+            <p>Trading Market</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-market-gold" class="total-market-gold">0</span> Market Gold
+            </p>
+            <p>
+              <span id="total-merchents-at-market" class="total-merchents-at-market">0</span> Merchents at Market
+            </p>
+            <p>Adding: ( <span class="market-gold-per-sec">0</span> gold/sec) </p>
+            <div class="flex space-between">
+              <button id="add-merchent" class="btn margin-bottom-10">Add <br />Merchent </button>
+              <button id="remove-merchent" class="btn margin-bottom-10">Remove <br />Merchent </button>
+            </div>
+            <button id="transfer-market-gold" class="btn margin-bottom-10 width-100">Transfer 10,000 Gold</button>
+          </div>
+        </div>
+        <div class="card alch-card w95 hidden">
+          <div class="card-header">
+            <p>Alchemy Table</p>
+          </div>
+          <div class="card-body">
+
+            <form class="alch-table">
+              <legend>Research</legend>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="alch-table" id="platinum-radio" value="platinum">
+                <label class="form-check-label" for="platinum-radio">Platinum</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="alch-table" id="gems-radio" value="gems">
+                <label class="form-check-label" for="gems-radio">Gems</label>
+              </div>
+            </form>
+
+            <p class="pb-10">
+              <span id="total-plat" class="total-plat">0</span> Platinum
+            </p>
+            <div class="progress">
+              <div class="progress-bar progress-plat" role="progressbar" style="width: 0%; height: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <span class="font-12">5 Platinum = 8,000 Gold</span>
+            <br>
+            <button id="convert-plat" class="btn margin-bottom-30">Convert Platinum (5)</button>
+
+            <p class="pb-10">
+              <span id="total-gems" class="total-gems">0</span> Gems
+            </p>
+            <div class="progress">
+              <div class="progress-bar progress-gems" role="progressbar" style="width: 0%; height: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <span class="font-12">5 Gems = 1,500 Glory</span>
+            <br>
+            <button id="convert-gems" class="btn margin-bottom-10">Convert Gems (5)</button>
+
+          </div>
+        </div>
+        <div class="card war-card w95 hidden">
+          <div class="card-header">
+            <p>War Room</p>
+          </div>
+          <div class="card-body">
+
+            <div class="target-page">
+
+            <legend>Low Risk Target - Barbarians</legend>
+            <p class="flex"> Supply Cost: <span class="flex flex-col pl-5">
+                <span><span class="low-risk-gold-cost">0</span> gold</span>
+                <span><span class="low-risk-glory-cost">0</span> glory</span>
+              </span>
+            </p>
+            <p class="flex"> Potential Reward: <span class="flex flex-col pl-5">
+                <span><span class="low-risk-gold-reward">0</span> gold</span>
+                <span><span class="low-risk-glory-reward">0</span> glory</span>
+              </span>
+            </p>
+            <button id="attack-low-risk-target" class="btn margin-bottom-10 attack-btn">Attack</button>
+
+            <legend>Medium Risk Target - Armed Patrol</legend>
+            <p class="flex"> Supply Cost: <span class="flex flex-col pl-5">
+                <span><span class="med-risk-gold-cost">0</span> gold</span>
+                <span><span class="med-risk-glory-cost">0</span> glory</span>
+              </span>
+            </p>
+            <p class="flex"> Potential Reward: <span class="flex flex-col pl-5">
+                <span><span class="med-risk-gold-reward">0</span> gold</span>
+                <span><span class="med-risk-glory-reward">0</span> glory</span>
+              </span>
+            </p>
+            <button id="attack-med-risk-target" class="btn margin-bottom-10 attack-btn">Attack</button>
+
+
+            <legend>High Risk Target - Walled City</legend>
+            <p class="flex"> Supply Cost: <span class="flex flex-col pl-5">
+                <span><span class="high-risk-gold-cost">0</span> gold</span>
+                <span><span class="high-risk-glory-cost">0</span> glory</span>
+              </span>
+            </p>
+            <p class="flex"> Potential Reward: <span class="flex flex-col pl-5">
+                <span><span class="high-risk-gold-reward">0</span> gold</span>
+                <span><span class="high-risk-glory-reward">0</span> glory</span>
+              </span>
+            </p>
+            <button id="attack-high-risk-target" class="btn margin-bottom-10 attack-btn">Attack</button>
+            <!-- launch attacks agaisnt low med high risk targets, gain mainly glory and small gp for wins. lose glory and gp for loss -->
+            </div>
+
+            <div class="attacking-page hidden">
+              <p>Attacking...</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-blocks progress-attacking" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+            </div>
+
+            <div class="results-page hidden">
+              <legend>Results of the Battle</legend>
+                <p>You <span id="win-lose">Gained/Lost</span> <span class="flex flex-col pl-5">
+                    <span><span id="results-page-gold">0</span> gold</span>
+                    <span><span id="results-page-glory">0</span> glory</span>
+                  </span>
+                </p>
+              <button id="collect" class="btn margin-bottom-10">Collect/Accept</button>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="card cathedral-card w95 hidden">
+          <div class="card-header">
+            <p>Cathedral</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-cathedral-gold" class="total-cathedral-gold">0</span> Gold in Cathedral Coffers
+            </p>
+
+            <p>Adding: ( <span class="cathedral-glory-per-sec">0</span> glory/sec) </p>
+            <p>Losing: ( <span class="cathedral-gold-per-sec">0</span> gold/sec) </p>
+            <button id="offer-cathedral-gold" class="btn margin-bottom-10 width-100">Offer 50,000 Gold</button>
+          </div>
+        </div>
+
+        <div class="card gold-card w95">
+          <div class="card-header">
+            <p>Gold</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-gold" class="total-gold">0</span>
+            </p>
+            <p>Total: ( <span class="gold-per-sec">0</span> gold/sec) </p>
+            <p>
+              <span class="gold-per-click">1</span> gold/click
+            </p>
+            <button id="get-gold" class="btn">Get Gold</button>
+          </div>
+        </div>
+        
+        <div class="card glory-card hidden w95">
+          <div class="card-header">
+            <p>Glory</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-glory" class="total-glory">0</span>
+            </p>
+            <p>Total: ( <span class="glory-per-sec">0</span> glory/sec) </p>
+            <p class="ascend-cost">Cost 1,000,000 Glory</p>
+            <button id="ascend" class="btn">ASCEND</button>
+          </div>
+        </div>
+
+        <div class="card peasent-card w95 hidden">
+          <div class="card-header">
+            <p>Peasents</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-peasents" class="total-peasents">0</span>
+            </p>
+            <p>Adding: ( <span class="peasent-gold-per-sec">0</span> gold/sec) </p>
+            <p>Cost: <span class="peasent-cost">20</span> Gold </p>
+            <button id="buy-peasent" class="btn margin-bottom-10">Buy Peasent</button>
+          </div>
+        </div>
+        <div class="card merchent-card w95 hidden">
+          <div class="card-header">
+            <p>Merchents</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-merchents" class="total-merchents">0</span>
+            </p>
+            <p>Adding: ( <span class="merchent-gold-per-sec">0</span> gold/sec) </p>
+            <p>Cost: <span class="merchent-cost">150</span> Gold </p>
+            <button id="buy-merchent" class="btn">Buy Merchent</button>
+          </div>
+        </div>
+        <div class="card scholar-card w95 hidden">
+          <div class="card-header">
+            <p>Scholars</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-scholars" class="total-scholars">0</span>
+            </p>
+            <p>Adding: ( <span class="scholar-gold-per-sec">0</span> gold/sec) </p>
+            <p>Cost: <span class="scholar-cost">4000</span> Gold </p>
+            <button id="buy-scholar" class="btn">Buy Scholar</button>
+          </div>
+        </div>
+        <div class="card knight-card w95 hidden">
+          <div class="card-header">
+            <p>Knights</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-knights" class="total-knights">0</span>
+            </p>
+            <p class="flex"> Adding: <span class="flex flex-col pl-5">
+                <span>( <span class="knight-gold-per-sec">0</span> gold/sec) </span>
+                <span>( <span class="knight-glory-per-sec">0</span> glory/sec) </span>
+              </span>
+            </p>
+            <p>Cost: <span class="knight-cost">20000</span> Gold </p>
+            <button id="buy-knight" class="btn">Buy Knight</button>
+          </div>
+        </div>
+        <div class="card priest-card w95 hidden">
+          <div class="card-header">
+            <p>Priests</p>
+          </div>
+          <div class="card-body">
+            <p>
+              <span id="total-priests" class="total-priests">0</span>
+            </p>
+            <p>Adding: ( <span class="priest-glory-per-sec">0</span> glory/sec) </p>
+            <p>Cost: <span class="priest-cost">80000</span> Gold </p>
+            <button id="buy-priest" class="btn">Buy Priest</button>
+          </div>
+        </div>
+
+        <div class="card god-card w95 hidden">
+          <div class="card-header">
+            <p>You Win</p>
+          </div>
+          <div class="card-body">
+            <p>You have ascended to godhood</p>
+            <p>Thanks for playing King & Country</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end container -->
+    <footer class="taskbar">
+      <button class="btn start-button">King & Country</button>
+      <button class="btn start-button gold-tb active">Gold</button>
+      <button class="btn start-button glory-tb active hidden">Glory</button>
+      <button class="btn start-button peasent-tb active hidden">Peasents</button>
+      <button class="btn start-button farm-tb active hidden">Farm Management</button>
+      <button class="btn start-button merchent-tb active hidden">Merchents</button>
+      <button class="btn start-button market-tb active hidden">Trading Market</button>
+      <button class="btn start-button scholar-tb active hidden">Scholars</button>
+      <button class="btn start-button alch-tb active hidden">Alchemy Table</button>
+      <button class="btn start-button knight-tb active hidden">Knights</button>
+      <button class="btn start-button war-tb active hidden">War Room</button>
+      <button class="btn start-button priest-tb active hidden">Priests</button>
+      <button class="btn start-button cathedral-tb active hidden">Cathedral</button>
+    </footer>
+    <script type="text/javascript" src="assets/game.js"></script>
+  </body>
+</html>
