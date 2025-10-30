@@ -1,6 +1,31 @@
+html{
+	background: #222222;
+	color: #ffffff;
+	font-family: "Roboto Mono", monospace;
+	font-size: 16px;
+
+	background-color: #222;
+	opacity: 1;
+	background-image:  linear-gradient(#333 2px, transparent 2px), linear-gradient(90deg, #333 2px, transparent 2px), linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, #222 1px);
+	background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+	background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+html.kingdom-2{
+	background-image: linear-gradient(#333 2px, transparent 2px), linear-gradient(90deg, #333 2px, transparent 2px), linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, #211b0b 1px);
+}
+html.kingdom-3 {
+    background-image: linear-gradient(#333 2px, transparent 2px), linear-gradient(90deg, #333 2px, transparent 2px), linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, #210b0b 1px);
+}
 body{
 	margin: 0px;
-	overflow: hidden;
+	padding: 0px;
+}
+
+.container{
+	max-width: 1440px;
+	margin: auto;
+	padding: 0 20px;
 }
 
 h2{
@@ -17,213 +42,658 @@ a{
 	text-decoration: none;
 }
 
-.container{
-	padding: 50px;
-	max-width: 1920px;
-}
-
-.card{
-	width: 300px;
-	position: absolute;
-}
-
-.progress-bar {
-    transition: none !important;
-}
-
-.gold-card{
-	left: 5%;
-	top: 5%;
-}
-
-.glory-card{
-	left: 5%;
-	top: 5%;
-}
-
-.peasent-card{
-	left: 10%;
-	top: 10%;
-}
-.farm-card{
-	left: calc(10% + 305px);
-	top: 10%;
-}
-
-.merchent-card{
-	left: 15%;
-	top: 15%;
-}
-.market-card{
-	left: calc(15% + 305px);
-	top: 15%;
-}
-
-.scholar-card{
-	left: 20%;
-	top: 20%;
-}
-
-.alch-card{
-	left: calc(20% + 305px);
-	top: 20%;
-}
-
-.knight-card{
-	left: 25%;
-	top: 25%;
-}
-.war-card{
-	left: calc(25% + 305px);
-	top: 25%;
-}
-
-.priest-card{
-	left: 30%;
-	top: 30%;
-}
-.cathedral-card{
-	left: calc(30% + 305px);
-	top: 30%;
-}
-
-.god-card{
-	top: 50%;
-	left: 50%;
-
-	transform: translate(-50%, -50%);
-}
-
-
-
-.card-header{
-	padding: 2px 18px;
-	cursor: move;
-}
-.card-body{
-	padding: 18px;
-}
-
-.card-body p{
-	padding-bottom: 20px;
-}
-
-.cards-wrapper{
-	display: flex;
-	gap: 20px;
-}
-
-.btn{
-	cursor: pointer;
-	padding: 6px 12px;
-}
-
-.btn.active {
-    border: 2px inset #fff !important;
-    color: #424242;
-    box-shadow: -1px -1px #000 !important;
-    outline: 0 !important;
-    /*background: url(background.bmp);*/
-}
-
-.taskbar .btn.active{
-	vertical-align: middle;
-	    border-right: 1px solid #fff;
-	    border-bottom: 1px solid #fff;
-	    font-family: Arial;
-	    font-weight: 400;
-	    color: #000;
-	    margin: 0px;
-}
-.taskbar .start-button{
-	cursor: pointer;
-	padding: 6px 12px;
-	margin: 3px 1px;
-}
-
-
 .hidden{
 	display: none !important;
 }
 
-.margin-bottom-10{
-	margin-bottom: 10px;
+.main-header{
+	background: #111111;
 }
-.margin-bottom-30{
-	margin-bottom: 30px;
-}
-.pl-5{
-	padding-left: 5px;
-}
-.pb-10{
-	padding-bottom: 10px !important;
+.main-header > .container{
+	min-height: 195px;
 }
 
-.width-100{
+.resources{
+	padding: 20px 0;
+	display: flex;
+	gap: 30px;
+}
+.resources > div {
+    max-width: 250px;
+}
+
+.resources p {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 5px;
+}
+
+.main-tabs .tab{
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	padding: 2px 15px;
+	border-bottom: 0px;
+	background: #6633995e;
+	text-align: center;
+}
+.main-tabs .tab.active{
+	background: rebeccapurple;
+	color: #ffffff;
+}
+
+.kingdom{
+	display: none;
+}
+.kingdom.active{
+	display: block;
+}
+
+.inner-tabs{
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px 0;
+}
+
+.inner-tabs .tab{
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	padding: 2px 15px;
+	background: #3f2f09;
+	text-align: center;
+}
+.inner-tabs .tab.active{
+	background: darkgoldenrod;
+	color: #ffffff;
+}
+
+.inner-page{
+	display: none;
+}
+.inner-page.active{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+.unit-card{
+	background: #333333;
+	border: 2px solid #444444;
+	padding: 10px;
+	flex: 1 1 30%;
+	max-width: 450px;
+
+	box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+}
+.unit-card.unlock-card{
+	    display: flex;
+	    justify-content: center;
+}
+.unit-card.unlock-card .body{
+		display: flex;
+	    flex-direction: column;
+	    align-self: center;
+}
+.unit-card.unlock-card .body p{
+	padding-bottom: 10px;
+}
+.unit-card.unlock-card .body .btn{
+	text-align: center;
+	margin: auto;
+}
+
+.unit-card.the-great-forge {
+    background: #5f1212;
+    border: 2px solid #6f1e1e;
+    padding: 10px;
+    flex: 1 1 50%;
+    max-width: 900px;
+}
+
+.unit-card.the-great-forge .header{
+	text-align: center;
+}
+.unit-card.the-great-forge hr{
 	width: 100%;
 }
+
+.rune-card, .primal-rune-card{
+	padding: 10px;
+	flex: 1 1 auto;
+	max-width: 200px;
+	text-align: center;
+
+	box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+}
+
+.rune-card .body, .primal-rune-card .body{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+}
+
+
+.inner-page .rune-card.maan .header p{
+	border-bottom: 1px solid #cb8e62;
+}
+
+.rune-card.maan{
+	background: saddlebrown;
+	border: 1px solid #cb8e62;
+}
+.total-maan-runes-counter{
+	background: saddlebrown;
+}
+.primal-rune-card.primal-maan{
+	background: #753203;
+	border: 1px solid saddlebrown;
+}
+.total-primal-maan-runes-counter{
+	background: #753203;
+}
+
+.rune-card.nyd {
+    background: darkolivegreen;
+    border: 2px solid #799744;
+}
+.total-nyd-runes-counter {
+    background: darkolivegreen;
+}
+.primal-rune-card.primal-nyd {
+    background: #374917;
+    border: 2px solid darkolivegreen;
+}
+.total-primal-nyd-runes-counter {
+    background: #374917;
+}
+
+.inner-page .rune-card.uru .header p{
+	border-bottom: 1px solid firebrick;
+}
+
+.rune-card.uru{
+	background: #5f1616;
+	border: 2px solid firebrick;
+}
+.total-uru-runes-counter{
+	background: #5f1616;
+}
+
+.primal-rune-card.primal-uru{
+	background: #390505;
+	border: 2px solid #5f1616;
+}
+.total-primal-uru-runes-counter{
+	background: #390505;
+}
+
+.inner-page .rune-card.nyd .header p{
+	border-bottom: 1px solid #799744;
+}
+
+.armory-card{
+	display: none;
+	padding: 10px;
+	flex: 1 1 100%;
+	max-width: 900px;
+
+	background: #333333;
+	border: 2px solid #444444;
+
+	box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+
+}
+.armory-card.active{
+	display: block;
+}
+.armory-card .next, .armory-card .prev{
+	cursor: pointer;
+	padding: 10px;
+}
+.armory-card .armor-pieces{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: space-between;
+}
+.armory-card .armor-pieces .armor-piece {
+    flex: 1 1 20%;
+    max-width: 150px;
+    border: 2px solid #555555;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.armory-card .btn{
+	color: #ffffff;
+	width: 100%;
+	margin: 10px 0 0 0;
+	text-align: center;
+}
+.armory-card.armory-card-1 .btn, .total-bronze-counter{
+	/*bronze*/
+	background: linear-gradient(
+	  45deg,
+	  #7B4C1E 5%,
+	  #D7995B 10%,
+	  #A46628 30%,
+	  #CD7F32 50%,
+	  #A46628 70%,
+	  #D7995B 80%,
+	  #7B4C1E 95%
+	);
+}
+.armory-card.armory-card-2 .btn, .total-iron-counter{
+	/*iron*/
+	background: linear-gradient(
+	  45deg,
+	  #F2E5DA 5%,
+	  #B3A9A1 10%,
+	  #8C857E 30%,
+	  #66615C 50%,
+	  #8C857E 70%,
+	  #B3A9A1 80%,
+	  #F2E5DA 95%
+	);
+}
+.armory-card.armory-card-3 .btn, .total-mythril-counter{
+	/*mythril*/
+	background: linear-gradient(
+	  45deg,
+	  #C8D1F7 5%,
+	  #767B91 10%,
+	  #959BB8 30%,
+	  #575A6B 50%,
+	  #959BB8 70%,
+	  #767B91 80%,
+	  #C8D1F7 95%
+	);
+}
+.armory-card.armory-card-4 .btn, .total-adamant-counter{
+	/*adamant*/
+	background: linear-gradient(
+	  45deg,
+	  #C0CCC3 5%,
+	  #9CA69E 10%,
+	  #78807A 30%,
+	  #3C403D 50%,
+	  #78807A 70%,
+	  #9CA69E 80%,
+	  #C0CCC3 95%
+	);
+}
+.armory-card.armory-card-5 .btn, .total-titanium-counter{
+	/*titanium*/
+	background: linear-gradient(
+	  45deg,
+	  #78797e 5%,
+	  #6c6b68 10%,
+	  #a7a6a3 30%,
+	  #878681 50%,
+	  #a7a6a3 70%,
+	  #6c6b68 80%,
+	  #78797e 95%
+	);
+}
+
+.schematics {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 30px;
+}
+.schematics .schematic{
+	background: #333333;
+	border: 2px solid #444444;
+	padding: 10px;
+	flex: 1 1 40%;
+	box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+	max-width: 900px;
+}
+
+.inner-page .upgrades{
+	padding: 10px;
+}
+
+.inner-page .upgrades .header p{
+	font-size: 14px;
+}
+
+.inner-page .upgrades .body{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 10px;
+}
+.inner-page .upgrades .btn{
+	flex: 0 1 48%;
+	text-align: center;
+}
+
+.inner-page .header{
+	padding-bottom: 5px;
+}
+.inner-page .body{
+	padding-top: 5px;
+}
+.inner-page .header p{
+	font-size: 18px;
+	border-bottom: 1px solid;
+	padding-bottom: 5px;
+}
+
+.inner-page .armory-card .header p{
+	text-align: center;
+	border-bottom: none;
+}
+
+
+.btn{
+	cursor: pointer;
+	padding: 7px 18px;
+	font-size: 10px;
+	background: #ffffff;
+	text-align: left;
+	width: fit-content;
+}
+.btn.auto-buy-btn{
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.btn:active{
+	transform: translateY(1px);
+}
+
+.btn:disabled {
+	background: #c5c5c5 !important;
+}
+
+.top-btn {
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid white;
+    color: #ffffff;
+    width: 80px;
+    height: 40px;
+    padding: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.combat-tab{
+	display: none;
+}
+.combat-tab .stats-box{
+	border: 1px solid #ffffff;
+	padding: 10px;
+	min-width: 200px;
+	max-width: 280px;
+	position: relative;
+}
+.combat-tab.active{
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	background: #00000075;
+}
+.combat-tab.active .combat-tab-inner{
+	width: 800px;
+	height: 500px;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background: #111;
+	padding: 20px;
+	position: relative;
+	border: 2px solid #555;
+	max-width: 50%;
+	max-height: 50%;
+}
+
+.combat-tab.active .combat-tab-inner .close{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20px;
+	text-align: center;
+	padding: 10px;
+	border: 2px solid #555;
+	background: #fff;
+	cursor: pointer;
+	border-top: none;
+	border-right: none;
+	color: #111;
+	font-weight: 900;
+}
+
+.stats-box.stats-box-challenge {
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+#stats-hp-floating-number, #stats-challenge-hp-floating-number, #challenge-monster-hp-floating-number{
+	position: absolute;
+	top: 10px;
+	left: 50px;
+	z-index: 2;
+	color: red;
+
+	display: none;
+}
+#stats-hp-floating-number.active, #stats-challenge-hp-floating-number.active, #challenge-monster-hp-floating-number.active{
+	display: block;
+	animation: floatingText 0.6s ease-out;
+}
+
+.monster{
+	position: relative;
+	padding: 5px 0px;
+}
+.monster-floating-number{
+	position: absolute;
+	top: 2px;
+	right: 0;
+	left: 0;
+	text-align: center;
+
+	z-index: 2;
+	color: red;
+
+	display: none;
+}
+
+.boss-monster .monster-floating-number{
+	top: -3px;
+}
+.monster-floating-number.active{
+	display: block;
+}
+
+@keyframes floatingText {
+  0%{
+  	top: 10px;
+  	left: 50px;
+  }
+  100%{
+  	top: -10px;
+  	left: 70px;
+  }
+}
+
+.dead{
+	color: red;
+}
+
+.monsters{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding: 20px;
+}
+.boss-monster{
+	flex: 1 1 100%;
+	position: relative;
+}
+.boss-monster .btn{
+	text-align: center;
+	margin: auto;
+	width: 70%;
+	margin-top: 5px;
+}
+
+progress {
+	-webkit-appearance: none;
+	width: auto;
+	border: 1px solid #777777;
+}
+
+.forge-progress::-webkit-progress-value {
+	background: red; 
+}
+
+.pop-up {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    max-width: 150px;
+    padding: 20px;
+    background: #333333;
+    border: 2px solid #939393;
+
+    animation: popUpSlide 0.1s linear;
+}
+
+@keyframes popUpSlide {
+  0%{
+  	top: -100px;
+  }
+  100%{
+  	top: 0;
+  }
+}
+
+.win-screen{
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	background: #222;
+	display: flex;
+	justify-content: center;
+
+	animation: winGame 1.5s linear;
+}
+.win-screen > div{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+@keyframes winGame {
+  0%{
+  	opacity: 0;
+  }
+  100%{
+  	top: 1;
+  }
+}
+
+/*save*/
+.kingdom.kingdom-5{
+	background: #333333;
+	border: 2px solid #444444;
+	padding: 10px;
+	max-width: 700px;
+	margin: auto;
+	margin-top: 50px;
+}
+.kingdom.kingdom-5 .save-field{
+	align-items: center;
+}
+
+.kingdom.kingdom-5 .save-field input {
+	 width: 100%;
+	 max-width: 300px;
+}
+
 .flex{
 	display: flex;
 }
-.flex-1{
-	flex: 1;
-}
-.gap-20{
-	gap: 20px;
-}
-.space-between{
-	justify-content: space-between;
+.flex-wrap{
+	flex-wrap: wrap;
 }
 .flex-col{
 	flex-direction: column;
 }
-
-legend{
-	font-weight: bold;
-	border-bottom: 1px solid;
-	margin-bottom: 10px;
-	padding-bottom: 3px;
+.justify-center{
+	justify-content: center !important;
+}
+.space-between{
+	justify-content: space-between;
 }
 
+.flex-1{
+	flex: 1;
+}
+.gap-10{
+	gap: 10px;
+}
+.gap-20{
+	gap: 20px;
+}
+.gap-40{
+	gap: 40px;
+}
+.gap-50{
+	gap: 50px;
+}
+
+.padding-20{
+	padding: 20px;
+}
+.padding-y-20{
+	padding: 20px 0;
+}
+.padding-b-10{
+	padding-bottom: 10px;
+}
+.margin-t-20{
+	margin-top: 20px;
+}
+.font-11{
+	font-size: 11px;
+}
 .font-12{
 	font-size: 12px;
 }
 
-
-/* More WIN 95 */
-
-.progress {
-	margin-bottom: 10px;
+.text-center{
+	text-align: center;
 }
 
-.form-check {
-    position: relative;
-    display: block;
-    padding-left: 1.25rem;
-    padding-bottom: 5px;
-}
-
-.form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label {
-    color: #6c757d;
-}
-
-.form-check-label::before {
-	height: 10px;
-	width: 10px;
-	cursor: pointer;
-}
-
-input[type="radio"] + .form-check-label::after {
-    width: 6px;
-    height: 6px;
-    margin: 4.5px;
-}
-
-.form-check-label{
-	margin: 0px;
-	cursor: pointer;
-}
-
-.progress-bar-blocks {
-    height: 100%;
+.border-white{
+	border: 2px solid #ffffff;
 }
