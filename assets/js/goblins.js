@@ -26,6 +26,8 @@ goblinUnlock.addEventListener("click", function (e) {
       game.gold -= game.goblins.unlockCost;
       game.goblins.unlocked = true;
       unitUnlock(game.goblins, goblinCard, goblinUnlockCard);
+
+      popUpText("Primal Runes Unlocked");
     }
 });
 

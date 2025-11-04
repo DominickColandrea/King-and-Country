@@ -18,6 +18,8 @@ scholarUnlock.addEventListener("click", function (e) {
 		game.gold -= game.scholars.unlockCost;
 		game.scholars.unlocked = true;
   	unitUnlock(game.scholars, scholarCard, scholarUnlockCard);
+
+  	popUpText("Runes Unlocked");
 	}
 });
 

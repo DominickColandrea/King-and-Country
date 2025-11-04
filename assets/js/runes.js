@@ -203,6 +203,38 @@ function checkRunePurchases() {
 	  infuseNyd.disabled = false;
 	  infuseUru.disabled = false;
 	}
+
+	if (game.gold <= game.upgrades.scholars.unlockNydCost) {
+	  nydRuneUpgradeUnlock.disabled = true;
+	}
+	else{
+	  nydRuneUpgradeUnlock.disabled = false;
+	}
+	if (game.gold <= game.upgrades.scholars.unlockUruCost) {
+	  uruRuneUpgradeUnlock.disabled = true;
+	}
+	else{
+	  uruRuneUpgradeUnlock.disabled = false;
+	}
+
+	if (game.runes.maan.total >= game.runes.primalMaan.runeCost && game.goblins.total >= game.runes.primalMaan.goblinCost) {
+	  createPrimalMaan.disabled = false;
+	}
+	else{
+	  createPrimalMaan.disabled = true;
+	}
+	if (game.runes.nyd.total >= game.runes.primalNyd.runeCost && game.goblins.total >= game.runes.primalNyd.goblinCost) {
+	  createPrimalNyd.disabled = false;
+	}
+	else{
+	  createPrimalNyd.disabled = true;
+	}
+	if (game.runes.uru.total >= game.runes.primalUru.runeCost && game.goblins.total >= game.runes.primalUru.goblinCost) {
+	  createPrimalUru.disabled = false;
+	}
+	else{
+	  createPrimalUru.disabled = true;
+	}
 }
 
 function formatTextRunes(rune, currentInfusionID, runesClass) {

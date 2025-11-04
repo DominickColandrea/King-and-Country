@@ -41,6 +41,8 @@ mechanicUnlock.addEventListener("click", function (e) {
       game.gold -= game.mechanics.unlockCost;
       game.mechanics.unlocked = true;
       unitUnlock(game.mechanics, mechanicCard, mechanicUnlockCard);
+
+      popUpText("Schematics Unlocked");
     }
 });
 

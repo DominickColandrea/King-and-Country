@@ -46,6 +46,8 @@ blacksmithUnlock.addEventListener("click", function (e) {
     game.gold -= game.blacksmiths.unlockCost;
     game.blacksmiths.unlocked = true;
     unitUnlock(game.blacksmiths, blacksmithCard, blacksmithUnlockCard);
+
+    popUpText("Armory & Combat Unlocked");
   }
 });
 

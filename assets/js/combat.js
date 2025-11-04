@@ -110,7 +110,7 @@ function loadChallenge(challengeTierNumber, challengeMonster) {
 		let def = Math.floor(game.stats.def*0.70);
 
 		//set challenge stats
-		game.stats.challengeCombatLevel = Math.floor( (hp/4)+(str/3)+(def/3) );
+		game.stats.challengeCombatLevel = Math.floor( (maxHp/4)+(str/3)+(def/3) );
 		game.stats.challengeHp = hp;
 		game.stats.challengeMaxHp = maxHp;
 		game.stats.challengeStr = str;
@@ -127,7 +127,7 @@ function loadChallenge(challengeTierNumber, challengeMonster) {
 		let def = Math.floor(game.stats.def*0.40);
 
 		//set challenge stats
-		game.stats.challengeCombatLevel = Math.floor( (hp/4)+(str/3)+(def/3) );
+		game.stats.challengeCombatLevel = Math.floor( (maxHp/4)+(str/3)+(def/3) );
 		game.stats.challengeHp = hp;
 		game.stats.challengeMaxHp = maxHp;
 		game.stats.challengeStr = str;
@@ -144,7 +144,7 @@ function loadChallenge(challengeTierNumber, challengeMonster) {
 		let def = Math.floor(game.stats.def*0.10);
 
 		//set challenge stats
-		game.stats.challengeCombatLevel = Math.floor( (hp/4)+(str/3)+(def/3) );
+		game.stats.challengeCombatLevel = Math.floor( (maxHp/4)+(str/3)+(def/3) );
 		game.stats.challengeHp = hp;
 		game.stats.challengeMaxHp = maxHp;
 		game.stats.challengeStr = str;
@@ -666,7 +666,7 @@ function emblemCounter(challengeTier){
 }
 
 function calcCombatLevel() {
-	let hp = game.stats.hp;
+	let hp = game.stats.maxHp;
 	let str = game.stats.str;
 	let def = game.stats.def;
 
@@ -692,9 +692,11 @@ function addStats(metal, material) {
 	//runes HP
 	if (game.runes.uru.total > 0) {
 		game.stats.maxHp += game.runes.uru.total*5;
+		game.stats.maxHp = Math.round(game.stats.maxHp);
 	}
 	if (game.runes.primalUru.total > 0) {
 		game.stats.maxHp += game.runes.primalUru.total*20;
+		game.stats.maxHp = Math.round(game.stats.maxHp);
 	}
 
 

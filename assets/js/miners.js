@@ -66,6 +66,8 @@ minerUnlock.addEventListener("click", function (e) {
       game.gold -= game.miners.unlockCost;
       game.miners.unlocked = true;
       unitUnlock(game.miners, minerCard, minerUnlockCard);
+
+      popUpText("Metalurgy Unlocked");
     }
 });
 

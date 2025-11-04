@@ -163,7 +163,7 @@ let game = {
       hp: 25,
       maxHp: 25,
       str: 6,
-      def: 1,
+      def: 2,
       combatLevel: 0,
       heroism: 24,
       alive: true,
@@ -253,8 +253,8 @@ let game = {
     },
     goblinChieftain:{
       name: "Goblin Chieftain",
-      hp: 120,
-      maxHp: 120,
+      hp: 170,
+      maxHp: 170,
       str: 50,
       def: 7,
       combatLevel: 0,
@@ -264,10 +264,10 @@ let game = {
     },
     dragon:{
       name: "Dragon",
-      hp: 500,
-      maxHp: 500,
-      str: 99,
-      def: 50,
+      hp: 1000,
+      maxHp: 1000,
+      str: 300,
+      def: 100,
       combatLevel: 0,
       heroism: 0,
       alive: true,
@@ -447,8 +447,8 @@ let game = {
     primalMaan:{
       total: 0,
       mult: 4.5,
-      runeCost: 1,
-      runeCostMult: 1.3,
+      runeCost: 2,
+      runeCostMult: 1,
       goblinCost: 2,
       goblinCostMult: 1.3,
       autoCreate: false,
@@ -457,8 +457,8 @@ let game = {
     primalNyd:{
       total: 0,
       mult: 5,
-      runeCost: 1,
-      runeCostMult: 1.3,
+      runeCost: 2,
+      runeCostMult: 1,
       goblinCost: 6,
       goblinCostMult: 1.3,
       autoCreate: false,
@@ -467,8 +467,8 @@ let game = {
     primalUru:{
       total: 0,
       mult: 6.2,
-      runeCost: 1,
-      runeCostMult: 1.2,
+      runeCost: 2,
+      runeCostMult: 1,
       goblinCost: 9,
       goblinCostMult: 1.3,
       autoCreate: false,
@@ -992,7 +992,7 @@ let game = {
 
       forge:{
         ironSmelterOreCost: 3,
-        mythrilSmelterOreCost: 50,
+        mythrilSmelterOreCost: 200,
         mythrilSmelterIronCost: 5,
         adamantSmelterOreCost: 1000,
         adamantSmelterMythrilCost: 5,
@@ -1876,7 +1876,7 @@ function initalLoad() {
   formatTextString(bronzeRelicCostID, game.blacksmiths.relicCost);
 
   //set personal stats
-  addStats();  
+  addStats();
   calcCombatLevel();
   formatTextString(statsHpID, game.stats.hp);
   formatTextString(statsMaxHpID, game.stats.maxHp);

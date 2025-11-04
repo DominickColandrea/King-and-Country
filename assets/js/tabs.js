@@ -61,31 +61,59 @@ function tabReveal() {
   }
   if (game.gold >= game.scholars.unlockCost && !game.scholars.unlocked) {
       game.scholars.unlockCard = true;
+      scholarUnlock.disabled = false;
       scholarUnlockCard.classList.remove("hidden");
+  }
+  else{
+    scholarUnlock.disabled = true;
   }
   if (game.gold >= game.blacksmiths.unlockCost && !game.blacksmiths.unlocked) {
     game.blacksmiths.unlockCard = true;
+    blacksmithUnlock.disabled = false;
     blacksmithUnlockCard.classList.remove("hidden");
+  }
+  else{
+    blacksmithUnlock.disabled = true;
   }
   if (game.gold >= game.lapidaries.unlockCost && !game.lapidaries.unlocked) {
     game.lapidaries.unlockCard = true;
+    lapidaryUnlock.disabled = false;
     lapidaryUnlockCard.classList.remove("hidden");
+  }
+  else{
+    lapidaryUnlock.disabled = true;
   }
   if (game.gold >= game.miners.unlockCost && !game.miners.unlocked) {
     game.miners.unlockCard = true;
+    minerUnlock.disabled = false;
     minerUnlockCard.classList.remove("hidden");
+  }
+  else{
+    minerUnlock.disabled = true;
   }
   if (game.gold >= game.brewmasters.unlockCost && !game.brewmasters.unlocked) {
     game.brewmasters.unlockCard = true;
+    brewmasterUnlock.disabled = false;
     brewmasterUnlockCard.classList.remove("hidden");
+  }
+  else{
+    brewmasterUnlock.disabled = true;
   }
   if (game.gold >= game.goblins.unlockCost && !game.goblins.unlocked) {
     game.goblins.unlockCard = true;
+    goblinUnlock.disabled = false;
     goblinUnlockCard.classList.remove("hidden");
+  }
+  else{
+    goblinUnlock.disabled = true;
   }
   if (game.gold >= game.mechanics.unlockCost && !game.mechanics.unlocked) {
     game.mechanics.unlockCard = true;
+    mechanicUnlock.disabled = false;
     mechanicUnlockCard.classList.remove("hidden");
+  }
+  else{
+    mechanicUnlock.disabled = true;
   }
 
   if (game.stats.heroism > 0) {
@@ -173,10 +201,10 @@ function tabReveal() {
   }
 
   //counters
-  if (game.peasents.total >= 1) {
+  if (game.peasents.total >= 1 && $(".total-peasents-counter").hasClass("hidden")) {
     $(".total-peasents-counter").removeClass("hidden");
   }
-  if (game.scholars.total >= 1) {
+  if (game.scholars.total >= 1 && $(".total-scholars-counter").hasClass("hidden")) {
     $(".total-scholars-counter").removeClass("hidden");
     $(".total-runic-power-counter").removeClass("hidden");
     $(".total-runic-power-per-sec").removeClass("hidden");
@@ -190,7 +218,7 @@ function tabReveal() {
   if (game.runes.uru.total >= 1) {
     $(".total-uru-runes-counter").removeClass("hidden");
   }
-  if (game.blacksmiths.total >= 1) {
+  if (game.blacksmiths.total >= 1 && $(".total-blacksmiths-counter").hasClass("hidden")) {
     $(".total-blacksmiths-counter").removeClass("hidden");
     $(".total-bronze-counter").removeClass("hidden");
   }
