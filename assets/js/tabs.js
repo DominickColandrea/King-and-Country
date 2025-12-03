@@ -281,6 +281,7 @@ function tabReveal() {
     popUpText("Dwarf Kingdom Unlocked");
   }
   else if (game.stats.heroism >= 100 && $(".kingdom-2").hasClass("hidden") ) {
+    $(".boss-monster-overlay.dwarfking-overlay").addClass("hidden");
     $(".boss-monster.dwarfking").removeClass("hidden");
   }
 
@@ -293,16 +294,17 @@ function tabReveal() {
     popUpText("Goblin Kingdom Unlocked");
   }
   else if (game.stats.heroism >= 1500 && $(".kingdom-3").hasClass("hidden") ) {
+    $(".boss-monster-overlay.goblinchieftain-overlay").addClass("hidden");
     $(".boss-monster.goblinchieftain").removeClass("hidden");
   }
 
   if (!game.monsters.dragon.alive) {
     $(".boss-monster.dragon").addClass("hidden");
-    $(".win-screen").removeClass("hidden");
-    game.win = true;
-    realTimeConversion();
+    $("#phase-1 .text-window").removeClass("hidden");
+
   }
   else if (game.stats.heroism >= 5000) {
+    $(".boss-monster-overlay.dragon-overlay").addClass("hidden");
     $(".boss-monster.dragon").removeClass("hidden");
   }
 

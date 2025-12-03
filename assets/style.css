@@ -20,6 +20,11 @@ html.kingdom-3 {
 body{
 	margin: 0px;
 	padding: 0px;
+	overflow-x: hidden;
+}
+
+h3{
+	margin: 0;
 }
 
 .container{
@@ -453,7 +458,7 @@ a{
 }
 .combat-tab.active .combat-tab-inner{
 	width: 800px;
-	height: 500px;
+	height: 550px;
 	right: 0;
 	left: 0;
 	top: 0;
@@ -463,8 +468,8 @@ a{
 	padding: 20px;
 	position: relative;
 	border: 2px solid #555;
-	max-width: 50%;
-	max-height: 50%;
+	max-width: 90%;
+	max-height: 60%;
 }
 
 .combat-tab.active .combat-tab-inner .close{
@@ -557,6 +562,20 @@ a{
 	width: 70%;
 	margin-top: 5px;
 }
+.boss-monster-overlay{
+	text-align: center;
+	flex: 1 1 100%;
+	position: relative;
+	padding: 10px;
+	border: 3px solid #444;
+	background: repeating-linear-gradient(
+	45deg,
+	#444,
+	#444 3px,
+	#000 3px,
+	#000 20px
+	);
+}
 
 progress {
 	-webkit-appearance: none;
@@ -578,16 +597,22 @@ progress {
     padding: 20px;
     background: #333333;
     border: 2px solid #939393;
-
-    animation: popUpSlide 0.1s linear;
+	z-index: 100;
+    animation: popUpSlide 2.6s linear;
 }
 
 @keyframes popUpSlide {
   0%{
   	top: -100px;
   }
-  100%{
+  10%{
   	top: 0;
+  }
+  90%{
+  	top: 0;
+  }
+  100%{
+  	top: -100px;
   }
 }
 
@@ -602,7 +627,7 @@ progress {
 	display: flex;
 	justify-content: center;
 
-	animation: winGame 1.5s linear;
+	animation: fadeIn 1.5s linear;
 }
 .win-screen > div{
 	display: flex;
@@ -612,13 +637,163 @@ progress {
 }
 
 
-@keyframes winGame {
+@keyframes fadeIn {
   0%{
   	opacity: 0;
   }
   100%{
-  	top: 1;
+  	opacity: 1;
   }
+}
+@keyframes fadeOut {
+  0%{
+  	opacity: 1;
+  }
+  100%{
+  	opacity: 0;
+  }
+}
+@keyframes mapBlink {
+  0%{
+  	opacity: 1;
+  }
+  50%{
+  	opacity: 0;
+  }
+  100%{
+  	opacity: 1;
+  }
+}
+
+/*phase 2*/
+#phase-1.unactive{
+	animation: fadeOut 1.5s linear;
+}
+
+#phase-1 > .text-window{
+	position: absolute;
+	width: 800px;
+	height: 500px;
+    background: #111;
+    top: 50%;
+    bottom: 50%;
+    margin: auto;
+    padding: 30px;
+    border: 2px solid #ffffff;
+    left: 0;
+    right: 0;
+}
+
+#phase-2 {
+    animation: fadeIn 1.5s linear;
+}
+
+.phase-2-ui-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 90vw;
+    height: 90%;
+    margin: auto;
+
+    gap: 20px;
+}
+
+.phase-2-ui {
+    border: 1px solid #ffffff;
+    background: #111;
+    padding: 20px;
+}
+
+.phase-2-ui-wrapper .phase-2-ui-top{
+	display: flex;
+	height: 60%;
+	gap: 20px;
+}
+.phase-2-ui-wrapper .phase-2-ui-top .phase-2-ui {
+	min-height: 300px;
+}
+.phase-2-ui-wrapper .phase-2-ui.phase-2-ui-resources{
+	flex: 1 1 30%;
+}
+.phase-2-ui-wrapper .phase-2-ui-bottom{
+	display: flex;
+	height: 30%;
+	gap: 20px;
+}
+
+.phase-2-ui-wrapper .phase-2-ui-bottom .phase-2-ui {
+	min-height: 215px;
+}
+
+.phase-2-ui-wrapper .phase-2-ui-bottom .phase-2-ui-text-box{
+	display: flex;
+	flex-direction: column-reverse;
+	flex: 1 1 30%;
+
+	justify-content: space-between;
+}
+.phase-2-ui-wrapper .phase-2-ui-bottom .phase-2-ui-controls{
+	flex: 1 1 70%;
+	display: flex;
+	justify-content: space-around;
+}
+.phase-2-ui-wrapper .phase-2-ui-bottom .phase-2-ui-controls .phase-2-ui-controls-inner{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.phase-2-ui-wrapper .phase-2-ui-bottom .phase-2-ui-controls .phase-2-ui-controls-inner .btn{
+	font-size: 20px;
+	padding: 7px;
+	width: 80px;
+	display: flex;
+	justify-content: center;
+
+}
+
+.phase-2-ui-wrapper .phase-2-ui.phase-2-ui-map{
+	flex: 1 1 70%;
+	display: flex;
+	flex-wrap: wrap;
+
+	min-width: 550px;
+}
+
+.map-row {
+	display: flex;
+    flex: 1 1 100%;
+}
+.map-item {
+    flex: 1 1 9%;
+    border: 1px solid;
+    margin: 2px;
+}
+
+.map-item.conquered {
+    background: white;
+}
+.map-item.fortress {
+    background: #753203;
+}
+.map-item.headquarters {
+    background: darkolivegreen;
+}
+
+.map-item.hell-stronghold {
+    background: darkred;
+}
+
+.map-item.unconquered {
+    background: transparent;
+}
+.map-item.player {
+	animation: mapBlink 2s linear infinite;
+    background: yellow !important;
 }
 
 /*save*/
@@ -654,6 +829,16 @@ progress {
 .space-between{
 	justify-content: space-between;
 }
+.items-center{
+	align-items: center;
+}
+
+.m-auto{
+	margin: auto;
+}
+.w-100{
+	width: 100%;
+}
 
 .flex-1{
 	flex: 1;
@@ -669,6 +854,9 @@ progress {
 }
 .gap-50{
 	gap: 50px;
+}
+.gap-80{
+	gap: 80px;
 }
 
 .padding-20{

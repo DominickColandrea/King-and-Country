@@ -264,8 +264,8 @@ let game = {
     },
     dragon:{
       name: "Dragon",
-      hp: 1000,
-      maxHp: 1000,
+      hp: 1500,
+      maxHp: 1500,
       str: 300,
       def: 100,
       combatLevel: 0,
@@ -1018,6 +1018,62 @@ let game = {
     },
 
   },
+
+  phase2:{
+    active: false,
+    conquering: false,
+    conqueringPercent: 0,
+
+    troopRegen: false,
+    troopRegenCounter: 0,
+
+    troopCounter: 0,
+    portalCounter: 200,
+    demonArtifactCounter: 0,
+    demonSoulCounter: 0,
+
+    isConqueringFortress: false,
+
+    resources:{
+      troops: 50,
+      troopsEfficiency: 1,
+      troopsEfficiencyCost: 5,
+      portals: 0,
+      portalsCost: 1,
+      portalsEfficiency: 1,
+      portalsEfficiencyCost: 5,
+      demonArtifacts: 0,
+      demonSouls: 0,
+      demonSoulsCost: 8,
+      totalHellConquered: 1,
+      facesDestroyed: 0,
+    },
+
+    prevLocation: [0,0],
+    location: [0,0],
+
+    specialLocations:{
+      headquarters: [0,0],
+      fortress_1: [1,6],
+      fortress_2: [6,4],
+      fortress_3: [8,8],
+    },
+
+    map:[
+      ['conquered headquarters','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold','unconquered','unconquered','unconquered','unconquered'],
+      ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold'],
+      ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold'],
+    ],
+    text:[],
+
+  },
 }
 
 let totalGoldID = document.querySelector("#total-gold");
@@ -1449,6 +1505,15 @@ function formatTextToFixedTwoDecimals(text, number) {
   }
 }
 
+function formatTextToFixedNoDecimals(text, number) {
+  if (number >= 1000000) {
+   text.textContent = number.toExponential(2);
+  }
+  else{
+    text.textContent = Number(number).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+}
+
 
 function random(min,max) {
  return Math.floor((Math.random())*(max-min+1))+min;
@@ -1502,9 +1567,9 @@ function autoMaxBuy() {
 
 //run the game
 function gameloop(afkCounter){
+  game.counter++;
 
-  if (!game.win) {
-    game.counter++;
+  if (!game.phase2.active) {
   
 	  addGems(afkCounter);
     //add all gold
@@ -1519,8 +1584,29 @@ function gameloop(afkCounter){
     regenHealth(afkCounter);
   }
 
+  else{
+
+    checkPhase2Purchases();
+
+    if(game.phase2.conquering){
+      conquering();
+    }
+    if(game.phase2.resources.portals >= 1){
+      portalTimer();
+      portalAdding();
+    }
+    if(game.phase2.troopRegen){
+      troopRegen();
+    }
+
+  }
+
 }
 
+function winGame() {
+  realTimeConversion();
+  $(".win-screen").removeClass("hidden");
+}
 function realTimeConversion() {
   game.realTimeSecs = Math.floor(game.counter/10);
   game.realTimeMins = Math.floor(game.realTimeSecs/60);
@@ -2102,6 +2188,44 @@ function initalLoad() {
     document.querySelector('.blood-transfusion-pauldrons .btn-schematic').disabled = true;
   }
 
+
+  //phase 2
+  if (game.phase2.active) {
+    $("#phase-2").removeClass("hidden");
+    $("#phase-1").addClass("hidden");
+  }
+  else{
+    $("#phase-2").addClass("hidden");
+    $("#phase-1").removeClass("hidden");
+  }
+
+  if ( !$(".phase-2-ui-map").children().length > 0 ) {
+    createMap();
+  }
+  else{
+    editMap();
+    textScroll();
+  }
+
+
+  formatTextString(totalTroops, game.phase2.resources.troops);
+  formatTextToFixedNoDecimals(demonArtifactsCost, game.phase2.resources.portalsCost);
+  formatTextString(demonArtifactsTotal, game.phase2.resources.demonArtifacts);
+  formatTextString(demonSoulsTotal, game.phase2.resources.demonSouls);
+  formatTextToFixedNoDecimals(conjureDemonSoulCost, game.phase2.resources.demonSoulsCost);
+
+  formatTextToFixedTwoDecimals(portalEfficiencyID, game.phase2.resources.portalsEfficiency);
+  formatTextToFixedTwoDecimals(troopEfficiencyID, game.phase2.resources.troopsEfficiency);
+
+  formatTextToFixedNoDecimals(portalEfficiencyCostID, game.phase2.resources.portalsEfficiencyCost);
+  formatTextToFixedNoDecimals(troopEfficiencyCostID, game.phase2.resources.troopsEfficiencyCost);
+
+  formatTextToFixedNoDecimals(totalHellConquered, game.phase2.resources.totalHellConquered);
+  formatTextToFixedNoDecimals(totalFacesDestroyed, game.phase2.resources.facesDestroyed);
+
+  movement();
+
+
 }
 initalLoad();
 
@@ -2124,8 +2248,8 @@ setInterval(function(){
 }, game.gameClock);
 
 
-function exportGame() {
-  let exportField = document.getElementById("exportField");
+function exportGame(exportFieldID) {
+  let exportField = document.getElementById(exportFieldID);
   exportField.value = btoa(JSON.stringify(game));
   if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
     let editable = exportField.contentEditable;
@@ -2148,9 +2272,9 @@ function exportGame() {
   popUpText("Copied to clipboard");
 }
 
-function importGame() {
+function importGame(importFieldID) {
   //loadgame = JSON.parse(atob(prompt("Input your save here:")))
-  let loadgame = JSON.parse(atob(document.getElementById("importField").value));
+  let loadgame = JSON.parse(atob(document.getElementById(importFieldID).value));
   if (loadgame && loadgame != null && loadgame != "") {
     game = loadgame;
     initalLoad();
@@ -2169,7 +2293,7 @@ function popUpText(text) {
 
   setTimeout(function(){
     $(".pop-up").remove();
-  }, 1500);
+  }, 2500);
 }
 
 //save reminder

@@ -17,6 +17,8 @@
   </head>
   <body>
 
+<section id="phase-1">
+
     <section class="combat-tab">
       <div class="combat-tab-inner">
 
@@ -118,6 +120,7 @@
 
           </div>
 
+
           <div class="boss-monster dwarfking flex flex-col hidden">
             <span class="monster-floating-number">-0</span>
             <progress id="dwarf-king-hp" value="14" max="14"></progress>
@@ -142,6 +145,19 @@
             <button id="fight-monster-dragon" class="btn">Fight Dragon <br />Combat Level: <span class="dragon-combat-level"></span>
             </button>
           </div>
+
+
+
+          <div class="boss-monster-overlay dwarfking-overlay flex flex-col">
+            <p>Unlock at 100 Heroism</p>
+          </div>
+          <div class="boss-monster-overlay goblinchieftain-overlay flex flex-col">
+            <p>Unlock at 1500 Heroism</p>
+          </div>
+          <div class="boss-monster-overlay dragon-overlay flex flex-col">
+            <p>Unlock at 5000 Heroism</p>
+          </div>
+          
           </div>
 
         </div>
@@ -1254,16 +1270,133 @@
           <div class="flex flex-col flex-1 save-field">
             <p class="padding-b-10">Save game as a text string</p>
             <input id="exportField">
-            <button id="export" class="btn" onclick="exportGame()">Export Save</button>
+            <button id="export" class="btn" onclick="exportGame('exportField')">Export Save</button>
           </div>
           <div class="flex flex-col flex-1 save-field">
             <p class="padding-b-10">Paste save game to import</p>
             <input id="importField">
-            <button id="import" class="btn" onclick="importGame()">Import Save</button>
+            <button id="import" class="btn" onclick="importGame('importField')">Import Save</button>
           </div>
         </div>
       </section>   
     </section>
+
+    <div class="text-window hidden">
+      <p>After defeating the dragon these lands are liberated and under your just rule. As peace time approaches your loyal scholars inform you of their latest findings.</p>
+      <br/>
+      <p>"A demonic plane of existance has been discovered and we fear an invasion is soon approaching! You must travel there and destroy the three heads of Lucifer to stop any future invasion!"</p>
+      <br/>
+      <p>Your scholars can conjured a single portal to let 50 men through. Perhaps you can find way to reinforce your army while in Hell.</p>
+      <br/>
+      <button id="enter-hell" class="btn flex m-auto">Enter Hell</button>
+    </div>
+
+</section>
+
+<section id="phase-2" class="hidden">
+
+  <div class="phase-2-ui-wrapper">
+    <div class="phase-2-ui-top">
+      <div class="phase-2-ui phase-2-ui-resources">
+        <h3>Troops: <span id="total-troops">0</span></h3>
+        <br/>
+
+        <h3>Portals: <span id="total-portals">0</span> <span class="font-11">(adding <span class="troops-per-sec">0</span> troops/sec)</span></h3>
+        <p class="font-11">Portal Closing in: <span id="portal-counter"></span></p>
+          <br/>
+        <h3>Demon Artifacts: <span id="total-demon-artifacts">0</span></h3>
+          <br/>
+        <h3>Demon Souls: <span id="total-demon-souls">0</span></h3>
+        <br/>
+        <h3><span id="total-hell-conquered"></span>% of Hell Conquered</h3>
+        <p class="font-11">Increases portal strength</p>
+        <br/>
+        <h3><span id="total-faces-destroyed"></span> / 3 Faces Destroyed</h3>
+      </div>
+      <div class="phase-2-ui phase-2-ui-map"></div>
+
+    </div>
+
+    <div class="phase-2-ui-bottom">
+      <div class="phase-2-ui phase-2-ui-text-box">
+        <div>
+          <p class="text-scroll-6"></p>
+          <p class="text-scroll-5"></p>
+          <p class="text-scroll-4"></p>
+          <p class="text-scroll-3"></p>
+          <p class="text-scroll-2"></p>
+          <p class="text-scroll-1"></p>
+        </div>
+
+        <h3><span class="location-title"></span> <br/><span class="conquering-percentage"></span>% Conquered</h3>
+      </div>
+      <div class="phase-2-ui phase-2-ui-controls">
+
+        <div class="phase-2-ui-controls-buttons flex gap-10">
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10">
+              <div class="flex-1">
+                <button id="create-portal" class="btn w-100">Create Portal<br/>
+                Cost: <span class="demon-artifacts-cost"></span> Demon Artifacts</button>        
+              </div>
+              <div class="flex-1">
+                <button id="conjure-demon-soul" class="btn w-100">Conjure Demon Soul<br/>
+                  Cost: <span class="conjure-demon-soul-cost"></span> Demon Artifacts</button>   
+              </div>  
+            </div>
+            <div class="flex gap-10">
+              <div class="flex-1">
+                <button id="upgrade-portals" class="btn w-100">Upgrade Portals<br />
+                  x <span class="portal-efficiency">1.00</span><br/>
+                Cost: <span class="portal-efficiency-cost"></span> Demon Souls</button>        
+              </div>
+              <div class="flex-1">
+                <button id="upgrade-troops" class="btn w-100">Upgrade Troops<br />
+                  x <span class="troop-efficiency">1.00</span><br/>
+                  Cost: <span class="troop-efficiency-cost"></span> Demon Souls</button>   
+              </div>  
+            </div>
+
+          </div>
+   
+        </div>
+
+          <div class="phase-2-ui-controls-inner">
+          
+            <div class="flex flex-col items-center gap-10">
+              <div>
+                <button id="up" class="btn movement-btn">&#8593;</button>
+              </div>
+              <div class="flex gap-80">
+                <button id="left" class="btn movement-btn">&#8592;</button>
+                <button id="right" class="btn movement-btn">&#8594;</button>
+              </div>
+              <div>
+                <button id="down" class="btn movement-btn">&#8595;</button>
+              </div>
+            </div>
+
+          </div>
+
+      </div>
+
+      <div class="phase-2-ui phase-2-ui-save">
+        <div class="flex flex-col flex-1 save-field">
+          <p class="padding-b-10">Save game as a text string</p>
+          <input id="exportField_phase2" class="exportField">
+          <button id="export_phase2" class="btn" onclick="exportGame('exportField_phase2')">Export Save</button>
+        </div>
+        <div class="flex flex-col flex-1 save-field">
+          <p class="padding-b-10">Paste save game to import</p>
+          <input id="importField_phase2" class="importField">
+          <button id="import_phase2" class="btn" onclick="importGame('importField_phase2')">Import Save</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
     <section class="win-screen hidden">
       <div>
@@ -1285,6 +1418,7 @@
     <script type="text/javascript" src="assets/js/goblins.js"></script>
     <script type="text/javascript" src="assets/js/mechanics.js"></script>
     <script type="text/javascript" src="assets/js/combat.js"></script>
+    <script type="text/javascript" src="assets/js/phase2.js"></script>
     <script type="text/javascript" src="assets/js/game.js"></script>
   </body>
 </html>
