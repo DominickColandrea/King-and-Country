@@ -81,9 +81,11 @@ minerBuyMAX.addEventListener("click", function (e) {
 minerBuyMAXauto.addEventListener("click", function (e) {
   game.miners.autoBuy = !game.miners.autoBuy;
   if (game.miners.autoBuy) {
+    minerBuyMAXauto.classList.add("auto-on");
     minerBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    minerBuyMAXauto.classList.remove("auto-on");
     minerBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });

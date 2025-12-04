@@ -229,9 +229,9 @@ let game = {
     },
     wyvern:{
       name: "Wyvern",
-      hp: 110,
-      maxHp: 110,
-      str: 58,
+      hp: 92,
+      maxHp: 92,
+      str: 48,
       def: 12,
       combatLevel: 0,
       heroism: 0,
@@ -322,6 +322,8 @@ let game = {
 
     costMult: 1.20,
     autoBuy: false,
+
+    efficiencyAutoBuy: false,
 
     relicCost: 1000000,
     relicCostMult: 1.25,
@@ -1683,6 +1685,103 @@ function initalLoad() {
     totalMechanicsClass[i].textContent = Math.floor(game.mechanics.total);
   }
 
+  //autos
+  if (game.peasents.autoBuy) {
+    peasentBuyMAXauto.classList.add("auto-on");
+    peasentBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    peasentBuyMAXauto.classList.remove("auto-on");
+    peasentBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.peasents.efficiencyAutoBuy) {
+    increasePeasentEfficiencyMAXauto.classList.add("auto-on");
+    increasePeasentEfficiencyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    increasePeasentEfficiencyMAXauto.classList.remove("auto-on");
+    increasePeasentEfficiencyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.scholars.autoBuy) {
+    scholarBuyMAXauto.classList.add("auto-on");
+    scholarBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    scholarBuyMAXauto.classList.remove("auto-on");
+    scholarBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.blacksmiths.efficiencyAutoBuy) {
+    increaseBlacksmithEfficiencyMAXauto.classList.add("auto-on");
+    increaseBlacksmithEfficiencyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    increaseBlacksmithEfficiencyMAXauto.classList.remove("auto-on");
+    increaseBlacksmithEfficiencyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.lapidaries.autoBuy) {
+    lapidaryBuyMAXauto.classList.add("auto-on");
+    lapidaryBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    lapidaryBuyMAXauto.classList.remove("auto-on");
+    lapidaryBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.miners.autoBuy) {
+    minerBuyMAXauto.classList.add("auto-on");
+    minerBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    minerBuyMAXauto.classList.remove("auto-on");
+    minerBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.brewmasters.autoBuy) {
+    brewmasterBuyMAXauto.classList.add("auto-on");
+    brewmasterBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    brewmasterBuyMAXauto.classList.remove("auto-on");
+    brewmasterBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.goblins.autoBuy) {
+    goblinBuyMAXauto.classList.add("auto-on");
+    goblinBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    goblinBuyMAXauto.classList.remove("auto-on");
+    goblinBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+  if (game.mechanics.autoBuy) {
+    mechanicBuyMAXauto.classList.add("auto-on");
+    mechanicBuyMAXautoONOFF.textContent = "[ON]";
+  }
+  else{
+    mechanicBuyMAXauto.classList.remove("auto-on");
+    mechanicBuyMAXautoONOFF.textContent = "[OFF]";
+  }
+
+
+  //set unit efficiency
+  if (game.peasents.efficiency >= 1000000) {
+    peasentEfficiencyID.textContent = game.peasents.efficiency.toExponential(2);
+  }
+  else{
+   peasentEfficiencyID.textContent = game.peasents.efficiency.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  if (game.blacksmiths.efficiency >= 1000000) {
+    blacksmithEfficiencyID.textContent = game.blacksmiths.efficiency.toExponential(2);
+  }
+  else{
+   blacksmithEfficiencyID.textContent = game.blacksmiths.efficiency.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   //set unlock prices
   formatTextToFixed(scholarUnlockCost, game.scholars.unlockCost);

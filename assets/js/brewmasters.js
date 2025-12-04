@@ -30,9 +30,11 @@ brewmasterBuyMAX.addEventListener("click", function (e) {
 brewmasterBuyMAXauto.addEventListener("click", function (e) {
   game.brewmasters.autoBuy = !game.brewmasters.autoBuy;
   if (game.brewmasters.autoBuy) {
+    brewmasterBuyMAXauto.classList.add("auto-on");
     brewmasterBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    brewmasterBuyMAXauto.classList.remove("auto-on");
     brewmasterBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });

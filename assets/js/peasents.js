@@ -25,9 +25,11 @@ peasentBuyMAX.addEventListener("click", function (e) {
 peasentBuyMAXauto.addEventListener("click", function (e) {
   game.peasents.autoBuy = !game.peasents.autoBuy;
   if (game.peasents.autoBuy) {
+    peasentBuyMAXauto.classList.add("auto-on");
     peasentBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    peasentBuyMAXauto.classList.remove("auto-on");
     peasentBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });
@@ -40,9 +42,11 @@ increasePeasentEfficiencyMAX.addEventListener("click", function (e) {
 increasePeasentEfficiencyMAXauto.addEventListener("click", function (e) {
   game.peasents.efficiencyAutoBuy = !game.peasents.efficiencyAutoBuy;
   if (game.peasents.efficiencyAutoBuy) {
+    increasePeasentEfficiencyMAXauto.classList.add("auto-on");
     increasePeasentEfficiencyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    increasePeasentEfficiencyMAXauto.classList.remove("auto-on");
     increasePeasentEfficiencyMAXautoONOFF.textContent = "[OFF]";
   }
 });

@@ -63,9 +63,11 @@ goblinBuyMAX.addEventListener("click", function (e) {
 goblinBuyMAXauto.addEventListener("click", function (e) {
   game.goblins.autoBuy = !game.goblins.autoBuy;
   if (game.goblins.autoBuy) {
+    goblinBuyMAXauto.classList.add("auto-on");
     goblinBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    goblinBuyMAXauto.classList.remove("auto-on");
     goblinBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });

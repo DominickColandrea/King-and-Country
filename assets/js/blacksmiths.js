@@ -61,9 +61,11 @@ blacksmithBuyMAX.addEventListener("click", function (e) {
 blacksmithBuyMAXauto.addEventListener("click", function (e) {
   game.blacksmiths.autoBuy = !game.blacksmiths.autoBuy;
   if (game.blacksmiths.autoBuy) {
+    blacksmithBuyMAXauto.classList.add("auto-on");
     blacksmithBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    blacksmithBuyMAXauto.classList.remove("auto-on");
     blacksmithBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });
@@ -76,9 +78,11 @@ increaseBlacksmithEfficiencyMAX.addEventListener("click", function (e) {
 increaseBlacksmithEfficiencyMAXauto.addEventListener("click", function (e) {
   game.blacksmiths.efficiencyAutoBuy = !game.blacksmiths.efficiencyAutoBuy;
   if (game.blacksmiths.efficiencyAutoBuy) {
+    increaseBlacksmithEfficiencyMAXauto.classList.add("auto-on");
     increaseBlacksmithEfficiencyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    increaseBlacksmithEfficiencyMAXauto.classList.remove("auto-on");
     increaseBlacksmithEfficiencyMAXautoONOFF.textContent = "[OFF]";
   }
 });

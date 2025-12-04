@@ -32,9 +32,11 @@ scholarBuyMAX.addEventListener("click", function (e) {
 scholarBuyMAXauto.addEventListener("click", function (e) {
   game.scholars.autoBuy = !game.scholars.autoBuy;
   if (game.scholars.autoBuy) {
+  	scholarBuyMAXauto.classList.add("auto-on");
     scholarBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+  	scholarBuyMAXauto.classList.remove("auto-on");
     scholarBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });

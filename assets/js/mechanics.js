@@ -56,9 +56,11 @@ mechanicBuyMAX.addEventListener("click", function (e) {
 mechanicBuyMAXauto.addEventListener("click", function (e) {
   game.mechanics.autoBuy = !game.mechanics.autoBuy;
   if (game.mechanics.autoBuy) {
+    mechanicBuyMAXauto.classList.add("auto-on");
     mechanicBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    mechanicBuyMAXauto.classList.remove("auto-on");
     mechanicBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });

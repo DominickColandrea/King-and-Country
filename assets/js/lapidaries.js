@@ -32,9 +32,11 @@ lapidaryBuyMAX.addEventListener("click", function (e) {
 lapidaryBuyMAXauto.addEventListener("click", function (e) {
   game.lapidaries.autoBuy = !game.lapidaries.autoBuy;
   if (game.lapidaries.autoBuy) {
+    lapidaryBuyMAXauto.classList.add("auto-on");
     lapidaryBuyMAXautoONOFF.textContent = "[ON]";
   }
   else{
+    lapidaryBuyMAXauto.classList.remove("auto-on");
     lapidaryBuyMAXautoONOFF.textContent = "[OFF]";
   }
 });
