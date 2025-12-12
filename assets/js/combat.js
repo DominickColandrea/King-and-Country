@@ -665,6 +665,16 @@ function emblemCounter(challengeTier){
 
 }
 
+function resetCombat(){
+	game.stats.inCombat = false;
+	for (const [key, value] of Object.entries(game.monsters)) {
+	  if (value.respawnRate) {
+	  	value.alive = true;
+	  	value.hp = value.maxHp;
+	  }
+	}
+}
+
 function calcCombatLevel() {
 	let hp = game.stats.maxHp;
 	let str = game.stats.str;
@@ -675,7 +685,7 @@ function calcCombatLevel() {
 };
 
 function calcMonsterCombatLevel(monster,monsterCombatLevelClass) {
-	let hp = monster.hp;
+	let hp = monster.maxHp;
 	let str = monster.str;
 	let def = monster.def;
 

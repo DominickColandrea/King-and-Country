@@ -109,26 +109,26 @@ let game = {
     schematics:{
       hydraulicGauntlets: {
         constructed: false,
-        goblinCost: 100,
-        oreCost: 1000000000,
+        goblinCost: 50,
+        oreCost: 100000000000,
         knowledgeCost: 1000000,
       },
       chainSwordModule: {
         constructed: false,
-        goblinCost: 100,
-        oreCost: 1000000000,
+        goblinCost: 50,
+        oreCost: 100000000000,
         knowledgeCost: 1000000,
       },
       enginePoweredBoots: {
         constructed: false,
-        goblinCost: 100,
-        oreCost: 1000000000,
+        goblinCost: 50,
+        oreCost: 100000000000,
         knowledgeCost: 1000000,
       },
       bloodTransfusionPauldrons: {
         constructed: false,
-        goblinCost: 100,
-        oreCost: 1000000000,
+        goblinCost: 50,
+        oreCost: 100000000000,
         knowledgeCost: 1000000,
       },
     },
@@ -452,7 +452,7 @@ let game = {
       runeCost: 2,
       runeCostMult: 1,
       goblinCost: 2,
-      goblinCostMult: 1.3,
+      goblinCostMult: 1.1,
       autoCreate: false,
       name:"Primal Maan",
     },
@@ -462,7 +462,7 @@ let game = {
       runeCost: 2,
       runeCostMult: 1,
       goblinCost: 6,
-      goblinCostMult: 1.3,
+      goblinCostMult: 1.1,
       autoCreate: false,
       name:"Primal Nyd",
     },
@@ -472,7 +472,7 @@ let game = {
       runeCost: 2,
       runeCostMult: 1,
       goblinCost: 9,
-      goblinCostMult: 1.3,
+      goblinCostMult: 1.1,
       autoCreate: false,
       name:"Primal Uru",
     },
@@ -993,12 +993,12 @@ let game = {
       autoMaxUpgradeCost: 5000000000000000000,
 
       forge:{
-        ironSmelterOreCost: 3,
-        mythrilSmelterOreCost: 200,
+        ironSmelterOreCost: 10,
+        mythrilSmelterOreCost: 1000,
         mythrilSmelterIronCost: 5,
-        adamantSmelterOreCost: 1000,
+        adamantSmelterOreCost: 40000,
         adamantSmelterMythrilCost: 5,
-        titaniumSmelterOreCost: 2000000,
+        titaniumSmelterOreCost: 800000000,
         titaniumSmelterAdamantCost: 5,
       },
 
@@ -1515,6 +1515,25 @@ function formatTextToFixedNoDecimals(text, number) {
     text.textContent = Number(number).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 }
+function formatTextRawNoDecimals(text, number) {
+
+    if (Math.abs(number) < 1.0) {
+      var e = parseInt(number.toString().split('e-')[1]);
+      if (e) {
+          number *= Math.pow(10,e-1);
+          number = '0.' + (new Array(e)).join('0') + number.toString().substring(2);
+      }
+    } else {
+      var e = parseInt(number.toString().split('+')[1]);
+      if (e > 20) {
+          e -= 20;
+          number /= Math.pow(10,e);
+          number += (new Array(e+1)).join('0');
+      }
+    }
+
+    text.textContent = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 
 function random(min,max) {
@@ -1636,6 +1655,9 @@ function realTimeConversion() {
 
 //initial load runs
 function initalLoad() {
+
+  //always start on bronze page
+  game.armoryTab = 1;
 
   //unlock units
   unitUnlock(game.scholars, scholarCard, scholarUnlockCard);
@@ -2128,6 +2150,8 @@ function initalLoad() {
   calcMonsterCombatLevel(game.monsters.goblinChieftain, goblinChieftainCombatLevel);
   calcMonsterCombatLevel(game.monsters.dragon, dragonCombatLevel);
 
+  resetCombat();
+
   //set the great forge ticks/ores
   formatTextString(iron_orePerTickID, game.upgrades.miners.forge.ironSmelterOreCost);
   formatTextString(mythril_ironPerTickID, game.upgrades.miners.forge.mythrilSmelterIronCost);
@@ -2273,18 +2297,22 @@ function initalLoad() {
   if (game.stats.schematics.hydraulicGauntlets.constructed) {
     constructHydraulicGauntlets.textContent = "Constructed";
     document.querySelector('.hydraulic-gauntlets .btn-schematic').disabled = true;
+    $(".hydraulic-gauntlets.schematic").addClass("active");
   }
   if (game.stats.schematics.chainSwordModule.constructed) {
     constructChainSwordModule.textContent = "Constructed";
     document.querySelector('.chain-sword-module .btn-schematic').disabled = true;
+    $(".chain-sword-module.schematic").addClass("active");
   }
   if (game.stats.schematics.enginePoweredBoots.constructed) {
     constructEnginePoweredBoots.textContent = "Constructed";
     document.querySelector('.engine-powered-boots .btn-schematic').disabled = true;
+    $(".engine-powered-boots.schematic").addClass("active");
   }
   if (game.stats.schematics.bloodTransfusionPauldrons.constructed) {
     constructBloodTransfusionPauldrons.textContent = "Constructed";
     document.querySelector('.blood-transfusion-pauldrons .btn-schematic').disabled = true;
+    $(".blood-transfusion-pauldrons.schematic").addClass("active");
   }
 
 
@@ -2346,6 +2374,16 @@ setInterval(function(){
   lastUpdate = thisUpdate;
 }, game.gameClock);
 
+function removeSaveFields(){
+  let exportField_1 =  document.getElementById("exportField");
+  let exportField_2 =  document.getElementById("exportField_phase2");
+  let importField_1 =  document.getElementById("importField");
+  let importField_2 =  document.getElementById("importField_phase2");
+  exportField_1.value = "";
+  exportField_2.value = "";
+  importField_1.value = "";
+  importField_2.value = "";
+};
 
 function exportGame(exportFieldID) {
   let exportField = document.getElementById(exportFieldID);
@@ -2376,6 +2414,7 @@ function importGame(importFieldID) {
   let loadgame = JSON.parse(atob(document.getElementById(importFieldID).value));
   if (loadgame && loadgame != null && loadgame != "") {
     game = loadgame;
+    removeSaveFields();
     initalLoad();
     popUpText("Game Loaded");
   }

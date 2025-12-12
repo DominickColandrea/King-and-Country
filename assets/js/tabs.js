@@ -160,7 +160,7 @@ function tabReveal() {
   if (game.upgrades.blacksmiths.autoMaxEffUpgradeCost <= game.gold) {
     $(increaseBlacksmithEfficiencyMAXauto).removeClass("hidden");
   }
-  if (game.blacksmiths.relicCost <= game.metals.bronze.total) {
+  if (game.blacksmiths.relicCost <= game.metals.bronze.total || game.metals.bronze.relics.total > 0) {
     $(".bronze-relic").removeClass("hidden");
   }
 
@@ -280,9 +280,13 @@ function tabReveal() {
 
     popUpText("Dwarf Kingdom Unlocked");
   }
-  else if (game.stats.heroism >= 100 && $(".kingdom-2").hasClass("hidden") ) {
+  else if (game.stats.heroism >= 100) {
     $(".boss-monster-overlay.dwarfking-overlay").addClass("hidden");
-    $(".boss-monster.dwarfking").removeClass("hidden");
+
+    if ($(".kingdom-2").hasClass("hidden"))  {
+      $(".boss-monster.dwarfking").removeClass("hidden");
+    }
+
   }
 
   if (!game.monsters.goblinChieftain.alive && $(".kingdom-3").hasClass("hidden") ) {
@@ -293,9 +297,12 @@ function tabReveal() {
 
     popUpText("Goblin Kingdom Unlocked");
   }
-  else if (game.stats.heroism >= 1500 && $(".kingdom-3").hasClass("hidden") ) {
+  else if (game.stats.heroism >= 1500) {
     $(".boss-monster-overlay.goblinchieftain-overlay").addClass("hidden");
-    $(".boss-monster.goblinchieftain").removeClass("hidden");
+
+    if($(".kingdom-3").hasClass("hidden")){
+      $(".boss-monster.goblinchieftain").removeClass("hidden");
+    }
   }
 
   if (!game.monsters.dragon.alive) {

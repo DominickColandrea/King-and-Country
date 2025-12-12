@@ -82,7 +82,14 @@ function constructSchematic(schematic, schematicButton){
   if (schematic.goblinCost <= game.goblins.total &&
       schematic.oreCost <= game.metals.ore.total &&
       schematic.knowledgeCost <= game.knowledge.total) {
+
+        game.goblins.total -= schematic.goblinCost; 
+        game.metals.ore.total -= schematic.oreCost; 
+        game.knowledge.total -= schematic.knowledgeCost;
+        
         schematicButton.textContent = "Constructed";
+        schematicButton.disabled = true;
+        $(schematicButton).closest(".schematic").addClass("active");
         schematic.constructed = true;
 
 
