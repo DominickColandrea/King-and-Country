@@ -837,7 +837,7 @@ progress {
 	border: darkgreen 2px solid;
 	color: #fff;
 }
-#hard-reset, #hard-reset-2{
+#hard-reset, #hard-reset-2, #hard-reset-3{
 	background: transparent;
 	border: 2px solid darkred;
 	color: #fff;

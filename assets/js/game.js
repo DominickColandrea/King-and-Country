@@ -2388,6 +2388,7 @@ setInterval(function(){
 
   let hardReset = document.getElementById("hard-reset");
   let hardReset2 = document.getElementById("hard-reset-2");
+  let hardReset3 = document.getElementById("hard-reset-3");
 
   saveGame.addEventListener("click", function (e) {
       autoSave();
@@ -2400,6 +2401,9 @@ setInterval(function(){
       hardResetGame();
   });
   hardReset2.addEventListener("click", function (e) {
+      hardResetGame();
+  });
+  hardReset3.addEventListener("click", function (e) {
       hardResetGame();
   });
 
@@ -2464,14 +2468,17 @@ function hardResetGame() {
   if (game.resetCounter >= 1) {
     hardReset.textContent= "Hard Reset Game \n Click "+game.resetCounter+" More Times";
     hardReset2.textContent= "Hard Reset Game \n Click "+game.resetCounter+" More Times";
+    hardReset3.textContent= "Hard Reset Game \n Click "+game.resetCounter+" More Times";
   }
   else{
     hardReset.textContent= "Hard Reset Game";
     hardReset2.textContent= "Hard Reset Game";
+    hardReset3.textContent= "Hard Reset Game";
     let gameSave = localStorage.getItem("gameSave");
     if(gameSave) {
-      localStorage.clear("gameSave");
-      
+      localStorage.clear("gameSave");      
+    }
+    
       game = {
         //realtime tracker
         counter: 0,
@@ -3553,9 +3560,9 @@ function hardResetGame() {
         },
       }
 
-      initalLoad();
-      popUpText("Game Reset");
-    }
+    $(".win-screen").addClass("hidden");
+    initalLoad();
+    popUpText("Game Reset");
 
   }
 }
