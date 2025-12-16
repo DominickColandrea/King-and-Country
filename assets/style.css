@@ -832,6 +832,17 @@ progress {
 	 max-width: 300px;
 }
 
+#save-game, #save-game-2{
+	background: green;
+	border: darkgreen 2px solid;
+	color: #fff;
+}
+#hard-reset, #hard-reset-2{
+	background: transparent;
+	border: 2px solid darkred;
+	color: #fff;
+}
+
 .flex{
 	display: flex;
 }

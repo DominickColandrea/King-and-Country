@@ -1266,16 +1266,14 @@
 
       <!-- Settings -->
       <section class="kingdom kingdom-5">
+        <p class="text-center">Game will autosave every 5 minutes</p>
+        <br/>
         <div class="flex">
           <div class="flex flex-col flex-1 save-field">
-            <p class="padding-b-10">Save game as a text string</p>
-            <input id="exportField">
-            <button id="export" class="btn" onclick="exportGame('exportField')">Export Save</button>
+            <button id="save-game" class="btn">Save Game</button>
           </div>
           <div class="flex flex-col flex-1 save-field">
-            <p class="padding-b-10">Paste save game to import</p>
-            <input id="importField">
-            <button id="import" class="btn" onclick="importGame('importField')">Import Save</button>
+            <button id="hard-reset" class="btn">Hard Reset Game</button>
           </div>
         </div>
       </section>   
@@ -1381,15 +1379,13 @@
       </div>
 
       <div class="phase-2-ui phase-2-ui-save">
+          <p class="padding-b-10">Game will autosave every 5 minutes</p>
         <div class="flex flex-col flex-1 save-field">
-          <p class="padding-b-10">Save game as a text string</p>
-          <input id="exportField_phase2" class="exportField">
-          <button id="export_phase2" class="btn" onclick="exportGame('exportField_phase2')">Export Save</button>
+          <button id="save-game-2" class="btn">Save Game</button>
         </div>
+        <br />
         <div class="flex flex-col flex-1 save-field">
-          <p class="padding-b-10">Paste save game to import</p>
-          <input id="importField_phase2" class="importField">
-          <button id="import_phase2" class="btn" onclick="importGame('importField_phase2')">Import Save</button>
+          <button id="hard-reset-2" class="btn">Hard Reset Game</button>
         </div>
       </div>
 

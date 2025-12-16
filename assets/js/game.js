@@ -4,6 +4,7 @@ let game = {
   realTimeSecs: 0,
   realTimeMins: 0,
   realTimeHours: 0,
+  resetCounter: 5,
 
   win: false,
   //clock rate
@@ -1590,6 +1591,10 @@ function autoMaxBuy() {
 function gameloop(afkCounter){
   game.counter++;
 
+  if(game.counter % 3000 == 0) {
+      autoSave();
+  }
+
   if (!game.phase2.active) {
   
 	  addGems(afkCounter);
@@ -1655,6 +1660,9 @@ function realTimeConversion() {
 
 //initial load runs
 function initalLoad() {
+
+  //reset hard reset counter
+  game.resetCounter = 5;
 
   //always start on bronze page
   game.armoryTab = 1;
@@ -2374,17 +2382,28 @@ setInterval(function(){
   lastUpdate = thisUpdate;
 }, game.gameClock);
 
-function removeSaveFields(){
-  let exportField_1 =  document.getElementById("exportField");
-  let exportField_2 =  document.getElementById("exportField_phase2");
-  let importField_1 =  document.getElementById("importField");
-  let importField_2 =  document.getElementById("importField_phase2");
-  exportField_1.value = "";
-  exportField_2.value = "";
-  importField_1.value = "";
-  importField_2.value = "";
-};
 
+  let saveGame = document.getElementById("save-game");
+  let saveGame2 = document.getElementById("save-game-2");
+
+  let hardReset = document.getElementById("hard-reset");
+  let hardReset2 = document.getElementById("hard-reset-2");
+
+  saveGame.addEventListener("click", function (e) {
+      autoSave();
+  });
+  saveGame2.addEventListener("click", function (e) {
+      autoSave();
+  });
+
+  hardReset.addEventListener("click", function (e) {
+      hardResetGame();
+  });
+  hardReset2.addEventListener("click", function (e) {
+      hardResetGame();
+  });
+
+/*
 function exportGame(exportFieldID) {
   let exportField = document.getElementById(exportFieldID);
   exportField.value = btoa(JSON.stringify(game));
@@ -2422,6 +2441,1127 @@ function importGame(importFieldID) {
     alert("Invalid input.");
   }
 }
+*/
+
+function autoSave() {
+  let gameSave = btoa(JSON.stringify(game));
+  localStorage.setItem("gameSave", gameSave);
+  popUpText("Game Saved");
+}
+
+function autoSaveLoad() {
+  let gameSave = localStorage.getItem("gameSave");
+  if(gameSave) {
+    gameSave = JSON.parse(atob(gameSave));
+    game = gameSave;
+    initalLoad();
+    popUpText("Game Loaded");
+  }
+}
+
+function hardResetGame() {
+  game.resetCounter--;
+  if (game.resetCounter >= 1) {
+    hardReset.textContent= "Hard Reset Game \n Click "+game.resetCounter+" More Times";
+    hardReset2.textContent= "Hard Reset Game \n Click "+game.resetCounter+" More Times";
+  }
+  else{
+    hardReset.textContent= "Hard Reset Game";
+    hardReset2.textContent= "Hard Reset Game";
+    let gameSave = localStorage.getItem("gameSave");
+    if(gameSave) {
+      localStorage.clear("gameSave");
+      
+      game = {
+        //realtime tracker
+        counter: 0,
+        realTimeSecs: 0,
+        realTimeMins: 0,
+        realTimeHours: 0,
+        resetCounter: 5,
+        
+        win: false,
+        //clock rate
+        gameClock: 100,
+        updateRate: 100,
+        //main currency
+        gold: 1,
+        goldGen: 0.02,
+        goldGenDefault: 0.02,
+        runicGenDefault: 0.01,
+        metalsGenDefault: 0.01,
+
+        armoryTab: 1,
+        //stats
+        stats:{
+          hp: 5,
+          maxHp: 5,
+          challengeHp: 0,
+          challengeMaxHp: 0,
+          maxHpBase: 5,
+          str: 1,
+          strBase: 1,
+          challengeStr: 0,
+          def: 0,
+          challengeDef: 0,
+          defBase: 0,
+          heroism: 0,
+          emblems:{
+            tier_1:{
+              total: 0,
+            },
+            tier_2:{
+              total: 0,
+            },
+            tier_3:{
+              total: 0,
+            },
+            monstersSlain: 0,
+          },
+          combatLevel: 1,
+          challengeCombatLevel: 0,
+          inCombat: false,
+          alive: true,
+          regenCounter: 0,
+          equipment:{
+            greaves:{
+              name:"greaves",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            legs:{
+              name:"legs",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            gauntlets:{
+              name:"gauntlets",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            plate:{
+              name:"plate",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            helm:{
+              name:"helm",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            pauldrons:{
+              name:"pauldrons",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            sword:{
+              name:"sword",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+            shield:{
+              name:"shield",
+              equipedPowerLevel:0,
+              def: 0,
+              str: 0,
+              hp: 0,
+            },
+          },
+          schematics:{
+            hydraulicGauntlets: {
+              constructed: false,
+              goblinCost: 50,
+              oreCost: 100000000000,
+              knowledgeCost: 1000000,
+            },
+            chainSwordModule: {
+              constructed: false,
+              goblinCost: 50,
+              oreCost: 100000000000,
+              knowledgeCost: 1000000,
+            },
+            enginePoweredBoots: {
+              constructed: false,
+              goblinCost: 50,
+              oreCost: 100000000000,
+              knowledgeCost: 1000000,
+            },
+            bloodTransfusionPauldrons: {
+              constructed: false,
+              goblinCost: 50,
+              oreCost: 100000000000,
+              knowledgeCost: 1000000,
+            },
+          },
+        },
+
+        //monsters & enemies
+        monsters:{
+          slime:{
+            name: "Slime",
+            hp: 3,
+            maxHp: 3,
+            str: 1,
+            def: -1,
+            combatLevel: 0,
+            heroism: 1,
+            alive: true,
+            respawnRate: 3,
+          },
+          scorpion:{
+            name: "Scorpion",
+            hp: 6,
+            maxHp: 6,
+            str: 2,
+            def: 2,
+            combatLevel: 0,
+            heroism: 8,
+            alive: true,
+            respawnRate: 15,
+          },
+          bear:{
+            name: "Bear",
+            hp: 25,
+            maxHp: 25,
+            str: 6,
+            def: 2,
+            combatLevel: 0,
+            heroism: 24,
+            alive: true,
+            respawnRate: 40,
+          },
+          dwarvenSkeleton:{
+            name: "Dwarven Skeleton",
+            hp: 60,
+            maxHp: 60,
+            str: 17,
+            def: 5,
+            combatLevel: 0,
+            heroism: 40,
+            alive: true,
+            respawnRate: 90,
+          },
+          griffon:{
+            name: "Griffon",
+            hp: 140,
+            maxHp: 140,
+            str: 63,
+            def: 9,
+            combatLevel: 0,
+            heroism: 80,
+            alive: true,
+            respawnRate: 150,
+          },
+          //work on stats
+          wyrmling:{
+            name: "Wyrmling",
+            hp: 200,
+            maxHp: 200,
+            str: 75,
+            def: 18,
+            combatLevel: 0,
+            heroism: 160,
+            alive: true,
+            respawnRate: 180,
+          },
+
+          //challenge monsters
+          giantLizard:{
+            name: "Giant Lizard",
+            hp: 55,
+            maxHp: 55,
+            str: 20,
+            def: 5,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: 1,
+          },
+          werewolf:{
+            name: "Werewolf",
+            hp: 80,
+            maxHp: 80,
+            str: 36,
+            def: 8,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: 1,
+          },
+          wyvern:{
+            name: "Wyvern",
+            hp: 92,
+            maxHp: 92,
+            str: 48,
+            def: 12,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: 1,
+          },
+
+          //bosses
+          dwarfKing:{
+            name: "Dwarf King",
+            hp: 14,
+            maxHp: 14,
+            str: 11,
+            def: 2,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: false,
+          },
+          goblinChieftain:{
+            name: "Goblin Chieftain",
+            hp: 170,
+            maxHp: 170,
+            str: 50,
+            def: 7,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: false,
+          },
+          dragon:{
+            name: "Dragon",
+            hp: 1500,
+            maxHp: 1500,
+            str: 300,
+            def: 100,
+            combatLevel: 0,
+            heroism: 0,
+            alive: true,
+            respawnRate: false,
+          },
+
+        },
+
+        //units & costs
+        peasents: {
+
+          total: 0,
+          cost: 1,
+
+          efficiency: 1,
+          efficiencyMult: 1.20,
+
+          efficiencyCost: 200,
+          efficiencyCostMult: 1.05,
+
+          costMult: 1.05,
+          autoBuy: false,
+          efficiencyAutoBuy: false,
+
+          unlocked: false,
+        },
+        scholars: {
+
+          total: 0,
+          cost: 11000,
+
+          efficiency: 1,
+
+          costMult: 1.05,
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 5500,
+        },
+
+        blacksmiths: {
+          
+          total: 0,
+          cost: 3500000,
+
+          efficiency: 1,
+          efficiencyMult: 0.40,
+
+          efficiencyCost: 4300000,
+          efficiencyCostMult: 1.15,
+
+          costMult: 1.20,
+          autoBuy: false,
+
+          efficiencyAutoBuy: false,
+
+          relicCost: 1000000,
+          relicCostMult: 1.25,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 1750000,
+        },
+
+        lapidaries: {
+          
+          gems: {
+            total:0,
+          },
+
+          total: 0,
+          cost: 130000000,
+          costMult: 1.32,
+
+          efficiency: 1,
+          efficiencyMult: 0.40,
+
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 100000000,
+        },
+
+        miners: {
+          
+          total: 0,
+          cost: 400000000000,
+          costMult: 1.10,
+
+          efficiency: 1,
+          efficiencyMult: 0.40,
+
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 200000000000,
+        },
+
+        brewmasters: {
+
+          total: 0,
+          cost: 100000000000000,
+          costMult: 1.10,
+
+          efficiency: 1.25,
+
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 50000000000000,
+        },
+
+        goblins: {
+
+          total: 0,
+          cost: 100000000000000000,
+          costMult: 1.03,
+
+          efficiency: 1.07,
+          efficiencyMult: 0.40,
+
+          selection: null,
+
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 50000000000000000,
+        },
+
+        mechanics: {
+
+          total: 0,
+          cost: 100000000000000000000000,
+          costMult: 1.33,
+
+          efficiency: 1.07,
+          efficiencyMult: 0.40,
+
+          autoBuy: false,
+
+          unlocked: false,
+          unlockCard: false,
+          unlockCost: 50000000000000000000000,
+        },
+
+        //runes
+        runes:{
+          runicPower: 0,
+          maan:{
+            total: 0,
+            infusion: 0,
+            maxInfusion: 200,
+            maxInfusionMult: 1.13,
+            autoInfuse: false,
+            name:"Maan",
+          },
+          nyd:{
+            total: 0,
+            infusion: 0,
+            maxInfusion: 6000,
+            maxInfusionMult: 1.20,
+            autoInfuse: false,
+            name:"Nyd",
+          },
+          uru:{
+            total: 0,
+            infusion: 0,
+            maxInfusion: 800000,
+            maxInfusionMult: 1.27,
+            autoInfuse: false,
+            name:"Uru",
+          },
+          //primal
+          primalMaan:{
+            total: 0,
+            mult: 4.5,
+            runeCost: 2,
+            runeCostMult: 1,
+            goblinCost: 2,
+            goblinCostMult: 1.1,
+            autoCreate: false,
+            name:"Primal Maan",
+          },
+          primalNyd:{
+            total: 0,
+            mult: 5,
+            runeCost: 2,
+            runeCostMult: 1,
+            goblinCost: 6,
+            goblinCostMult: 1.1,
+            autoCreate: false,
+            name:"Primal Nyd",
+          },
+          primalUru:{
+            total: 0,
+            mult: 6.2,
+            runeCost: 2,
+            runeCostMult: 1,
+            goblinCost: 9,
+            goblinCostMult: 1.1,
+            autoCreate: false,
+            name:"Primal Uru",
+          },
+        },
+
+        //metals
+        metals:{
+          ore: {
+            total: 0,
+          },
+          bronze: {
+            name:"bronze",
+            powerLevel: 1,
+            total: 0,
+            relics:{
+              total: 0,
+            }
+          },
+          iron: {
+            name:"iron",
+            powerLevel: 2,
+            smelting: false,
+            total: 0,
+            smeltingProgress: 0,
+            output: 5,
+            outputCost: 100000000000,
+            outputCostMult: 1.20,
+            tickRate: 80,
+          },
+          mythril: {
+            name:"mythril",
+            powerLevel: 3,
+            smelting: false,
+            total: 0,
+            smeltingProgress: 0,
+            output: 5,
+            outputCost: 2000000000000,
+            outputCostMult: 1.20,
+            tickRate: 160,
+          },
+          adamant: {
+            powerLevel: 4,
+            name:"adamant",
+            smelting: false,
+            total: 0,
+            smeltingProgress: 0,
+            output: 5,
+            outputCost: 30000000000000,
+            outputCostMult: 1.20,
+            tickRate: 220,
+          },
+          titanium: {
+            powerLevel: 5,
+            name:"titanium",
+            smelting: false,
+            total: 0,
+            smeltingProgress: 0,
+            output: 5,
+            outputCost: 600000000000000,
+            outputCostMult: 1.20,
+            tickRate: 300,
+          },
+        },
+
+        //armor
+        armor:{
+
+          bronze:{
+            greaves:{
+              name:"greaves",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 1,
+                str:0,
+                def:1,
+              },
+            },
+            legs:{
+              name:"legs",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 0,
+                str:0,
+                def:2,
+              },
+            },
+            gauntlets:{
+              name:"gauntlets",
+              forged: false,
+              cost: 50000,
+              stats:{
+                hp: 0,
+                str:1,
+                def:1,
+              },
+            },
+            plate:{
+              name:"plate",
+              forged: false,
+              cost: 100000,
+              stats:{
+                hp: 0,
+                str:0,
+                def:3,
+              },
+            },
+            helm:{
+              name:"helm",
+              forged: false,
+              cost: 45000,
+              stats:{
+                hp: 1,
+                str:0,
+                def:1,
+              },
+            },
+            pauldrons:{
+              name:"pauldrons",
+              forged: false,
+              cost: 45000,
+              stats:{
+                hp: 1,
+                str:0,
+                def:1,
+              },
+            },
+            sword:{
+              name:"sword",
+              forged: false,
+              cost: 100000,
+              stats:{
+                hp: 0,
+                str:3,
+                def:0,
+              },
+            },
+            shield:{
+              name:"shield",
+              forged: false,
+              cost: 100000,
+              stats:{
+                hp: 1,
+                str:0,
+                def:3,
+              },
+            },
+          },    
+          iron:{
+            greaves:{
+              name:"greaves",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 2,
+                str:0,
+                def:3,
+              },
+            },
+            legs:{
+              name:"legs",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 0,
+                str:1,
+                def:4,
+              },
+            },
+            gauntlets:{
+              name:"gauntlets",
+              forged: false,
+              cost: 40000,
+              stats:{
+                hp: 0,
+                str:1,
+                def:2,
+              },
+            },
+            plate:{
+              name:"plate",
+              forged: false,
+              cost: 75000,
+              stats:{
+                hp: 2,
+                str:0,
+                def:7,
+              },
+            },
+            helm:{
+              name:"helm",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 1,
+                str:2,
+                def:2,
+              },
+            },
+            pauldrons:{
+              name:"pauldrons",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 1,
+                str:0,
+                def:4,
+              },
+            },
+            sword:{
+              name:"sword",
+              forged: false,
+              cost: 130000,
+              stats:{
+                hp: 1,
+                str:8,
+                def:1,
+              },
+            },
+            shield:{
+              name:"shield",
+              forged: false,
+              cost: 110000,
+              stats:{
+                hp: 2,
+                str:0,
+                def:7,
+              },
+            },
+          },    
+          mythril:{
+            greaves:{
+              name:"greaves",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 5,
+                str:0,
+                def:12,
+              },
+            },
+            legs:{
+              name:"legs",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 0,
+                str:3,
+                def:16,
+              },
+            },
+            gauntlets:{
+              name:"gauntlets",
+              forged: false,
+              cost: 40000,
+              stats:{
+                hp: 0,
+                str:7,
+                def:15,
+              },
+            },
+            plate:{
+              name:"plate",
+              forged: false,
+              cost: 75000,
+              stats:{
+                hp: 0,
+                str:0,
+                def:18,
+              },
+            },
+            helm:{
+              name:"helm",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 7,
+                str:4,
+                def:10,
+              },
+            },
+            pauldrons:{
+              name:"pauldrons",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 4,
+                str:0,
+                def:12,
+              },
+            },
+            sword:{
+              name:"sword",
+              forged: false,
+              cost: 130000,
+              stats:{
+                hp: 5,
+                str:18,
+                def:0,
+              },
+            },
+            shield:{
+              name:"shield",
+              forged: false,
+              cost: 110000,
+              stats:{
+                hp: 9,
+                str:0,
+                def:20,
+              },
+            },
+          },    
+          adamant:{
+            greaves:{
+              name:"greaves",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 35,
+                str:0,
+                def:50,
+              },
+            },
+            legs:{
+              name:"legs",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 0,
+                str:12,
+                def:58,
+              },
+            },
+            gauntlets:{
+              name:"gauntlets",
+              forged: false,
+              cost: 40000,
+              stats:{
+                hp: 0,
+                str:29,
+                def:46,
+              },
+            },
+            plate:{
+              name:"plate",
+              forged: false,
+              cost: 75000,
+              stats:{
+                hp: 0,
+                str:0,
+                def:65,
+              },
+            },
+            helm:{
+              name:"helm",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 30,
+                str:25,
+                def:25,
+              },
+            },
+            pauldrons:{
+              name:"pauldrons",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 26,
+                str:0,
+                def:52,
+              },
+            },
+            sword:{
+              name:"sword",
+              forged: false,
+              cost: 130000,
+              stats:{
+                hp: 12,
+                str:74,
+                def:8,
+              },
+            },
+            shield:{
+              name:"shield",
+              forged: false,
+              cost: 110000,
+              stats:{
+                hp: 25,
+                str:0,
+                def:66,
+              },
+            },
+          },    
+          titanium:{
+            greaves:{
+              name:"greaves",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 60,
+                str:0,
+                def:85,
+              },
+            },
+            legs:{
+              name:"legs",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 0,
+                str:40,
+                def:90,
+              },
+            },
+            gauntlets:{
+              name:"gauntlets",
+              forged: false,
+              cost: 40000,
+              stats:{
+                hp: 0,
+                str:65,
+                def:82,
+              },
+            },
+            plate:{
+              name:"plate",
+              forged: false,
+              cost: 75000,
+              stats:{
+                hp: 0,
+                str:0,
+                def:99,
+              },
+            },
+            helm:{
+              name:"helm",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 70,
+                str:45,
+                def:50,
+              },
+            },
+            pauldrons:{
+              name:"pauldrons",
+              forged: false,
+              cost: 35000,
+              stats:{
+                hp: 70,
+                str:0,
+                def:86,
+              },
+            },
+            sword:{
+              name:"sword",
+              forged: false,
+              cost: 130000,
+              stats:{
+                hp: 34,
+                str:99,
+                def:14,
+              },
+            },
+            shield:{
+              name:"shield",
+              forged: false,
+              cost: 110000,
+              stats:{
+                hp: 70,
+                str:0,
+                def:120,
+              },
+            },
+          },
+        },
+
+        //knowledge
+        knowledge:{
+          total: 0,
+        },
+
+        //upgrades
+        upgrades: {
+          peasents:{
+            maxUpgradeCost: 100000,
+            autoMaxUpgradeCost: 100000000,
+
+            maxEffUpgradeCost: 100000,
+            autoMaxEffUpgradeCost: 100000000,
+          },
+          scholars:{
+            maxUpgradeCost: 50000000,
+            autoMaxUpgradeCost: 1000000000,
+            //unlock runes
+            unlockNyd: false,
+            unlockNydCost: 1000000,
+            unlockUru: false,
+            unlockUruCost: 1000000000,
+            autoInfuseCost: 500000000,
+          },
+          blacksmiths:{
+            maxUpgradeCost: 5000000000000,
+            autoMaxUpgradeCost: 500000000000000,
+
+            maxEffUpgradeCost: 5000000000000000,
+            autoMaxEffUpgradeCost: 500000000000000000,
+          },
+          lapidaries:{
+            maxUpgradeCost: 1000000000000000,
+            autoMaxUpgradeCost: 100000000000000000,
+          },
+          miners:{
+
+            maxUpgradeCost: 50000000000000000,
+            autoMaxUpgradeCost: 5000000000000000000,
+
+            forge:{
+              ironSmelterOreCost: 10,
+              mythrilSmelterOreCost: 1000,
+              mythrilSmelterIronCost: 5,
+              adamantSmelterOreCost: 40000,
+              adamantSmelterMythrilCost: 5,
+              titaniumSmelterOreCost: 800000000,
+              titaniumSmelterAdamantCost: 5,
+            },
+
+          },
+
+          brewmasters:{
+            maxUpgradeCost: 100000000000000000,
+            autoMaxUpgradeCost: 10000000000000000000,
+          },
+
+          goblins:{
+            maxUpgradeCost: 500000000000000000000,
+            autoMaxUpgradeCost: 50000000000000000000000,
+          },
+
+          mechanics:{
+            maxUpgradeCost: 50000000000000000000000,
+            autoMaxUpgradeCost: 5000000000000000000000000,
+          },
+
+        },
+
+        phase2:{
+          active: false,
+          conquering: false,
+          conqueringPercent: 0,
+
+          troopRegen: false,
+          troopRegenCounter: 0,
+
+          troopCounter: 0,
+          portalCounter: 200,
+          demonArtifactCounter: 0,
+          demonSoulCounter: 0,
+
+          isConqueringFortress: false,
+
+          resources:{
+            troops: 50,
+            troopsEfficiency: 1,
+            troopsEfficiencyCost: 5,
+            portals: 0,
+            portalsCost: 1,
+            portalsEfficiency: 1,
+            portalsEfficiencyCost: 5,
+            demonArtifacts: 0,
+            demonSouls: 0,
+            demonSoulsCost: 8,
+            totalHellConquered: 1,
+            facesDestroyed: 0,
+          },
+
+          prevLocation: [0,0],
+          location: [0,0],
+
+          specialLocations:{
+            headquarters: [0,0],
+            fortress_1: [1,6],
+            fortress_2: [6,4],
+            fortress_3: [8,8],
+          },
+
+          map:[
+            ['conquered headquarters','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold','unconquered','unconquered','unconquered','unconquered'],
+            ['unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered fortress','unconquered hell-stronghold'],
+            ['unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered','unconquered hell-stronghold','unconquered hell-stronghold','unconquered hell-stronghold'],
+          ],
+          text:[],
+
+        },
+      }
+
+      initalLoad();
+      popUpText("Game Reset");
+    }
+
+  }
+}
+
+//check autosave
+autoSaveLoad();
 
 function popUpText(text) {
   $(".pop-up").remove();
@@ -2433,13 +3573,3 @@ function popUpText(text) {
     $(".pop-up").remove();
   }, 2500);
 }
-
-//save reminder
-
-//window.addEventListener("beforeunload", function(e){
-//   e = e || window.event;
-//   if (e) {
-//       e.returnValue = 'Remember to save your game!';
-//   }
-//   return 'Remember to save your game!';
-//});
